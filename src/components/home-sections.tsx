@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Blocks, FlaskConical, Lightbulb, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
 
 const solutions = [
@@ -78,7 +78,10 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             <Image className="orbit-center" src="/assets/figma/about/orbit-center.svg" alt="نگاه خلاق" width={72} height={64} />
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
               const external = business.href.startsWith("http");
-              const style = { "--orbit-angle": `${position * (360 / members.length)}deg` } as CSSProperties;
+              const style = {
+                "--orbit-angle": `${position * (360 / members.length)}deg`,
+                "--orbit-duration": `${48 + index * 12 + position * 11}s`,
+              } as CSSProperties;
               const [width, height] = logoSizes[business.logo] ?? [38, 38];
               const content = <Image src={business.logo} alt={business.name} width={Math.ceil(width)} height={Math.ceil(height)} style={{ width, height }} unoptimized />;
               return (
@@ -111,29 +114,52 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
 }
 
 export function ProcessSection() {
-  const steps = [
-    { label: "شناخت", icon: Search, position: "process-northwest" },
-    { label: "ایده‌پردازی", icon: Lightbulb, position: "process-northeast" },
-    { label: "آمادگی", icon: Blocks, position: "process-southwest" },
-    { label: "اعتبارسنجی", icon: FlaskConical, position: "process-southeast" },
+  const diagram = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const element = diagram.current;
+    if (!element) return;
+    const observer = new ResizeObserver(([entry]) => setScale(entry.contentRect.width / 944));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  const assets = [
+    { src: "/assets/figma/process/horizontal.svg", width: 649, height: 4, left: 152, top: 235 },
+    { src: "/assets/figma/process/ascending.svg", width: 214, height: 249, left: 367.628, top: 108 },
+    { src: "/assets/figma/process/descending.svg", width: 205, height: 244, left: 373.499, top: 105.5 },
+    { src: "/assets/figma/process/eye.svg", width: 70, height: 70, left: 442, top: 195.5 },
+    { src: "/assets/figma/process/discovery.svg", width: 50, height: 50, left: 351, top: 49.5 },
+    { src: "/assets/figma/process/ideation.svg", width: 50, height: 50, left: 553, top: 52.5 },
+    { src: "/assets/figma/process/prototype.svg", width: 50, height: 50, left: 351, top: 368.5 },
+    { src: "/assets/figma/process/validation.svg", width: 50, height: 50, left: 553, top: 363.5 },
+    { src: "/assets/figma/process/top-arc.svg", width: 182, height: 37, left: 386.5, top: 8.916 },
+    { src: "/assets/figma/process/bottom-arc.svg", width: 182, height: 37, left: 386, top: 426.5 },
+    { src: "/assets/figma/process/top-arrow.svg", width: 14, height: 24, left: 469.183, top: 0.255 },
+    { src: "/assets/figma/process/bottom-arrow.svg", width: 14, height: 24, left: 468.683, top: 448.454 },
+    { src: "/assets/figma/process/right-arrow.svg", width: 24, height: 42, left: 810.183, top: 216.683 },
+    { src: "/assets/figma/process/left-arrow.svg", width: 24, height: 42, left: 129.183, top: 215.678 },
+    { src: "/assets/figma/process/left-arrow-extra.svg", width: 24, height: 42, left: 108.183, top: 215.678 },
+  ];
+  const labels = [
+    { text: "مقیاس افزایی", left: 99, top: 224.5 },
+    { text: "امادگی", left: 891.87, top: 224.5 },
+    { text: "ایده پردازی", left: 692, top: 62 },
+    { text: "اعتبار سنجی", left: 703, top: 378 },
+    { text: "نمونه اولیه", left: 343, top: 384 },
+    { text: "شناخت", left: 342, top: 64 },
+    { text: "زاویه دید", left: 508, top: 271 },
   ];
   return (
-    <section className="section process-section">
-      <div className="section-heading centered">
-        <SectionLabel>مسیر راه‌اندازی کسب‌وکار شما</SectionLabel>
-        <h2>ما چطوری کار می‌کنیم؟</h2>
+    <section className="section process-section" aria-labelledby="process-title">
+      <div className="process-heading">
+        <h2 id="process-title">ما چطوری کار می‌کنیم؟</h2>
+        <p>مسیر راه‌اندازی کسب‌وکار شما</p>
       </div>
-      <div className="process-diagram" aria-label="شناخت، ایده‌پردازی، آمادگی، اعتبارسنجی، نمونه اولیه و زاویه دید">
-        <span className="process-caption caption-top">نمونه اولیه</span>
-        <span className="process-caption caption-bottom">زاویه دید</span>
-        <div className="process-links" aria-hidden="true"><i /><i /><i /><i /></div>
-        {steps.map(({ label, icon: Icon, position }) => (
-          <div className={`process-node ${position}`} key={label}>
-            <span><Icon size={22} strokeWidth={1.7} /></span>
-            <small>{label}</small>
-          </div>
-        ))}
-        <div className="process-center"><Image src="/assets/figma/brand.png" alt="نگاه خلاق" width={28} height={28} /></div>
+      <div className="process-diagram" ref={diagram} style={{ "--process-scale": scale } as CSSProperties}>
+        <div className="process-stage">
+          {assets.map((asset) => <Image className="process-asset" key={asset.src} src={asset.src} alt="" width={asset.width} height={asset.height} style={{ left: asset.left, top: asset.top }} />)}
+          {labels.map((label) => <span className="process-step-label" key={label.text} style={{ left: label.left, top: label.top }}>{label.text}</span>)}
+        </div>
       </div>
     </section>
   );

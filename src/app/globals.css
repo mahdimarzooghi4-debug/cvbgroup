@@ -60,12 +60,12 @@ button { color: inherit; }
 .hero-stats span { color: white; font-size: 14px; line-height: 22px; }
 
 .main-content { position: relative; isolation: isolate; margin-top: 0; }
-.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 1440 / 2872; background: url("/assets/figma/about/main-circle.svg") top center / contain no-repeat; pointer-events: none; }
+.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: calc(50% - 1px); width: min(calc(100vw * 2872 / 1440), 2872px); aspect-ratio: 1; transform: translateX(-50%); background: url("/assets/figma/about/main-circle-native.png") top center / contain no-repeat; pointer-events: none; }
 .main-glow { position: absolute; z-index: -1; pointer-events: none; background: center / contain no-repeat; }
-.main-glow-1 { left: 0; top: calc(100vw * -149 / 1440); width: 55.4861%; aspect-ratio: 799 / 1222; background-image: url("/assets/figma/about/main-glow-1.svg"); }
-.main-glow-2 { left: 0; top: calc(100vw * 1097 / 1440); width: 49.5139%; aspect-ratio: 713 / 1222; background-image: url("/assets/figma/about/main-glow-2.svg"); }
-.main-glow-3 { left: 53.2639%; top: calc(100vw * 1048 / 1440); width: 46.7361%; aspect-ratio: 673 / 1222; background-image: url("/assets/figma/about/main-glow-3.svg"); }
-.main-glow-4 { left: 0; top: calc(100vw * 361 / 1440); width: 65.2778%; aspect-ratio: 940 / 1222; background-image: url("/assets/figma/about/main-glow-4.svg"); }
+.main-glow-1 { left: calc(50% - min(50vw, 720px)); top: calc(min(100vw, 1440px) * -149 / 1440); width: min(55.4861vw, 799px); aspect-ratio: 799 / 1222; background-image: url("/assets/figma/about/main-glow-1.svg"); }
+.main-glow-2 { left: calc(50% - min(50vw, 720px)); top: calc(min(100vw, 1440px) * 1097 / 1440); width: min(49.5139vw, 713px); aspect-ratio: 713 / 1222; background-image: url("/assets/figma/about/main-glow-2.svg"); }
+.main-glow-3 { left: calc(50% + min(100vw, 1440px) * 47 / 1440); top: calc(min(100vw, 1440px) * 1048 / 1440); width: min(46.7361vw, 673px); aspect-ratio: 673 / 1222; background-image: url("/assets/figma/about/main-glow-3.svg"); }
+.main-glow-4 { left: calc(50% - min(50vw, 720px)); top: calc(min(100vw, 1440px) * 361 / 1440); width: min(65.2778vw, 940px); aspect-ratio: 940 / 1222; background-image: url("/assets/figma/about/main-glow-4.svg"); }
 .section { width: min(100% - 40px, 1120px); margin-inline: auto; padding-block: clamp(62px, 8vw, 112px); }
 .section-heading { max-width: 650px; }
 .section-heading.centered { text-align: center; margin-inline: auto; }
@@ -96,26 +96,27 @@ button { color: inherit; }
 .ring-inner { left: 161.42px; top: 205.7px; }
 .orbit-center { position: absolute; left: 230px; top: 278px; }
 .orbit-node { position: absolute; left: 30px; top: 71px; width: 465.7px; height: 465.7px; pointer-events: none; animation: orbit-spin var(--orbit-duration) linear infinite; transform: rotate(var(--orbit-angle)); }
-.orbit-track-1 { --orbit-radius: 98.5px; --orbit-duration: 36s; }
-.orbit-track-2 { --orbit-radius: 170.9px; --orbit-duration: 52s; }
-.orbit-track-3 { --orbit-radius: 232.85px; --orbit-duration: 72s; }
+.orbit-track-1 { --orbit-radius: 98.5px; }
+.orbit-track-2 { --orbit-radius: 170.9px; }
+.orbit-track-3 { --orbit-radius: 232.85px; }
 .orbit-logo { position: absolute; top: calc(50% - var(--orbit-radius)); left: 50%; display: grid; place-items: center; width: 55.06px; height: 55.06px; pointer-events: auto; border-radius: 50%; background: white; box-shadow: 0 2.78px 2.78px rgba(0,0,0,.25); transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); animation: orbit-counter-spin var(--orbit-duration) linear infinite; transition: box-shadow .22s ease; }
 .orbit-logo img { object-fit: contain; max-width: 100%; max-height: 100%; }
 .orbit-logo:hover, .orbit-logo:focus-visible { box-shadow: 0 0 0 4px rgba(154,148,255,.4); outline: 2px solid white; outline-offset: 3px; }
 .orbit-visual:hover .orbit-node, .orbit-visual:hover .orbit-logo, .orbit-visual:focus-within .orbit-node, .orbit-visual:focus-within .orbit-logo { animation-play-state: paused; }
 @keyframes orbit-spin { from { transform: rotate(var(--orbit-angle)); } to { transform: rotate(calc(var(--orbit-angle) + 360deg)); } }
 @keyframes orbit-counter-spin { from { transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); } to { transform: translate(-50%, -50%) rotate(calc(-360deg - var(--orbit-angle))); } }
-.about-copy { direction: rtl; min-width: 0; margin-right: 18px; display: flex; flex-direction: column; gap: 15px; }
+.about-copy { direction: rtl; min-width: 0; align-self: start; margin-top: 143px; margin-right: 18px; display: flex; flex-direction: column; gap: 15px; }
 .about-heading { display: flex; flex-direction: column; gap: 16px; }
 .about-copy h2 { margin: 0; color: white; font-size: 40px; font-weight: 600; line-height: 48px; }
-.about-lead { margin: 0; color: #a78bfa; font-size: 19px; font-weight: 600; line-height: 28px; }
-.about-description { margin: 0; color: white; font-size: 16px; font-weight: 400; line-height: 35px; }
+.about-lead { margin: 0; color: #908cff; font-size: 19px; font-weight: 400; line-height: 28px; }
+.about-description { margin: 0; color: #fefefe; font-size: 16px; font-weight: 300; line-height: 35px; }
 .about-stats { display: flex; align-items: center; justify-content: space-between; width: min(100%, 492px); min-height: 70px; }
-.about-stat { display: flex; align-items: center; gap: 10px; }
-.about-stat > div { display: flex; flex-direction: column; gap: 3px; }
-.about-stats strong { color: white; font-size: 29px; line-height: 35px; font-weight: 600; }
+.about-stat { display: flex; align-items: center; width: 135px; gap: 8px; }
+.about-stat > div { display: flex; flex: 1; min-width: 0; flex-direction: column; align-items: flex-end; gap: 1px; text-align: right; }
+.about-stat > img { flex: 0 0 43px; }
+.about-stats strong { color: white; font-size: 29px; line-height: 35px; font-weight: 900; }
 .about-stats span { color: white; font-size: 14px; line-height: 22px; }
-.about-stat-projects span { font-size: 18px; }
+.about-stat-projects span { font-size: 18px; white-space: nowrap; }
 @media (max-width: 1100px) {
   .orbit-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 40px; }
   .about-copy { grid-row: 1; width: min(100% - 48px, 738px); margin: 0 auto; }
@@ -124,25 +125,13 @@ button { color: inherit; }
 .text-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; color: #b0adff; font-size: 13px; }
 
 .process-section { padding-top: 45px; padding-bottom: 95px; }
-.process-diagram { position: relative; width: min(100%, 664px); height: 468px; margin: 24px auto 0; }
-.process-links { position: absolute; inset: 0; }
-.process-links i { position: absolute; left: 50%; top: 50%; width: 35%; height: 1px; transform-origin: left center; background: linear-gradient(90deg, rgba(156, 169, 204, .85), rgba(156, 169, 204, .08)); }
-.process-links i:nth-child(1) { transform: rotate(218deg); }
-.process-links i:nth-child(2) { transform: rotate(322deg); }
-.process-links i:nth-child(3) { transform: rotate(142deg); }
-.process-links i:nth-child(4) { transform: rotate(38deg); }
-.process-node { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 116px; color: #dfe7f7; }
-.process-node > span { display: grid; place-items: center; width: 66px; height: 66px; border: 1px solid rgba(183, 195, 224, .55); border-radius: 50%; background: #18274a; color: #c3c0ff; box-shadow: 0 0 0 8px rgba(16, 29, 59, .8); }
-.process-node small { white-space: nowrap; color: #c2cde0; font-size: 12px; }
-.process-northwest { left: 17%; top: 12%; }
-.process-northeast { right: 17%; top: 12%; }
-.process-southwest { left: 17%; bottom: 12%; }
-.process-southeast { right: 17%; bottom: 12%; }
-.process-center { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 74px; height: 74px; border: 1px solid #94a7cb; border-radius: 50%; background: #111f3e; box-shadow: 0 0 0 8px rgba(17, 31, 62, .9), 0 0 35px rgba(115, 139, 204, .18); }
-.process-center img { object-fit: contain; }
-.process-caption { position: absolute; z-index: 1; left: 50%; transform: translateX(-50%); color: #aebbd0; font-size: 12px; }
-.caption-top { top: 1%; }
-.caption-bottom { bottom: 1%; }
+.process-heading { width: min(100%, 453px); margin-inline: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.process-heading h2 { margin: 0; color: white; font-size: 40px; font-weight: 600; line-height: 48px; }
+.process-heading p { margin: 0; color: #908cff; font-size: 20px; font-weight: 400; line-height: 28px; }
+.process-diagram { position: relative; width: min(100%, 944px); aspect-ratio: 944 / 472; margin: 45px auto 0; }
+.process-stage { position: absolute; left: 0; top: 0; width: 944px; height: 472px; transform: scale(var(--process-scale, 1)); transform-origin: left top; }
+.process-asset { position: absolute; max-width: none; }
+.process-step-label { position: absolute; transform: translateX(-100%); direction: rtl; color: white; font-size: 18px; font-weight: 800; line-height: 25px; white-space: nowrap; }
 
 .startups-section { width: 100%; max-width: none; padding-inline: max(20px, calc((100% - 1120px) / 2)); background: rgba(8, 16, 36, .54); }
 .startup-heading-row { width: min(100%, 1120px); margin-inline: auto; display: flex; align-items: end; justify-content: space-between; gap: 24px; }
@@ -270,12 +259,9 @@ button { color: inherit; }
   .about-stats strong { font-size: 24px; }
   .about-stats span, .about-stat-projects span { font-size: 13px; }
   .process-section { padding-top: 20px; padding-bottom: 60px; }
-  .process-diagram { height: 340px; margin-top: 18px; }
-  .process-node { width: 86px; gap: 6px; }
-  .process-node > span { width: 52px; height: 52px; box-shadow: 0 0 0 5px rgba(16, 29, 59, .8); }
-  .process-node small, .process-caption { font-size: 10px; }
-  .process-center { width: 56px; height: 56px; }
-  .process-center img { width: 24px; height: 24px; }
+  .process-heading h2 { font-size: 27px; line-height: 38px; }
+  .process-heading p { font-size: 16px; line-height: 25px; }
+  .process-diagram { margin-top: 30px; }
   .startups-section { width: 100%; padding-inline: 16px; }
   .startup-heading-row { align-items: end; gap: 10px; }
   .startup-heading-row .section-heading h2 { font-size: 23px; }
