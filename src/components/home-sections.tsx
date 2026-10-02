@@ -61,6 +61,9 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
     return () => observer.disconnect();
   }, []);
   const orbitMembers = [1, 2, 3].map((orbit) => businesses.filter((business) => business.orbit === orbit));
+  const orbitRadii = [98.5, 170.9, 232.85];
+  // Constant distance per second makes each logo move like an independent runner.
+  const runnerSpeeds = [16, 26, 12, 22, 18, 30, 14, 24];
   const logoSizes: Record<string, [number, number]> = {
     "/assets/brands/moon.png": [38, 38], "/assets/brands/henna.png": [38, 38],
     "/assets/brands/negarin.png": [32, 38], "/assets/brands/dena.png": [38, 38],
@@ -75,12 +78,13 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             <Image className="orbit-ring ring-outer" src="/assets/figma/about/orbit-outer.svg" alt="" width={472} height={472} />
             <Image className="orbit-ring ring-middle" src="/assets/figma/about/orbit-middle.svg" alt="" width={348} height={348} />
             <Image className="orbit-ring ring-inner" src="/assets/figma/about/orbit-inner.svg" alt="" width={203} height={203} />
-            <Image className="orbit-center" src="/assets/figma/about/orbit-center.svg" alt="نگاه خلاق" width={72} height={64} />
+            <Image className="orbit-center" src="/assets/figma/brand.png" alt="گروه کسب و کار نگاه خلاق" width={88} height={70} />
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
               const external = business.href.startsWith("http");
               const style = {
-                "--orbit-angle": `${position * (360 / members.length)}deg`,
-                "--orbit-duration": `${48 + index * 12 + position * 11}s`,
+                "--orbit-angle": `${index * 30 + position * (360 / members.length)}deg`,
+                "--orbit-radius": `${orbitRadii[index]}px`,
+                "--orbit-duration": `${(2 * Math.PI * orbitRadii[index] / runnerSpeeds[position % runnerSpeeds.length]).toFixed(3)}s`,
               } as CSSProperties;
               const [width, height] = logoSizes[business.logo] ?? [38, 38];
               const content = <Image src={business.logo} alt={business.name} width={Math.ceil(width)} height={Math.ceil(height)} style={{ width, height }} unoptimized />;
