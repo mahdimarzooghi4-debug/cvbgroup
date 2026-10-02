@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowLeft, ArrowDown } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { OrbitSection, ProcessSection, SolutionsSection, StartupsSection } from "@/components/home-sections";
 import { SiteFooter } from "@/components/site-footer";
@@ -18,18 +18,16 @@ export default async function HomePage() {
         <SiteHeader />
         <div className="hero-content">
           <span className="hero-eyebrow">نگاه خلاق؛ مادر صنعت نوآوری</span>
-          <h1 id="hero-title">کارخانه تولید<br /><span>کسب‌وکار</span></h1>
+          <h1 id="hero-title">کارخانه تولید <span>کسب‌وکار</span></h1>
           <p>با استفاده از جدیدترین تکنولوژی‌ها و تیم متخصص، ایده‌های شما را به کسب‌وکارهای پرسود و موفق تبدیل می‌کنیم.</p>
           <div className="hero-actions">
             <a className="primary-button" href="#contact">شروع همکاری <ArrowLeft size={17} /></a>
-            <a className="secondary-button" href="#about">درباره نگاه خلاق</a>
           </div>
           <div className="hero-stats" dir="rtl">
             <div><strong>+۵۰</strong><span>پروژه موفق</span></div>
             <div><strong>۹۵٪</strong><span>رضایت مشتری</span></div>
             <div><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
           </div>
-          <a className="hero-scroll" href="#services" aria-label="رفتن به بخش بعدی"><ArrowDown size={16} /></a>
         </div>
       </section>
 
