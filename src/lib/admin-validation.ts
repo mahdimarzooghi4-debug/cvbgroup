@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ORBIT_CAPACITY } from "@/lib/orbit-config";
 
 const safeUrl = z.union([z.literal(""), z.string().trim().url().max(2048)]).transform((value) => value || null);
 const assetUrl = z.string().trim().min(1).max(2048).refine((value) => value.startsWith("/") || /^https?:\/\//i.test(value), "نشانی لوگو باید مسیر محلی یا URL معتبر باشد.");
@@ -23,6 +24,6 @@ export const orbitSchema = z.object({
   logoUrl: assetUrl,
   websiteUrl: businessLink,
   orbit: z.number().int().min(1).max(3),
-  sortOrder: z.number().int().positive().max(8),
+  sortOrder: z.number().int().positive().max(ORBIT_CAPACITY),
   visible: z.boolean(),
 });

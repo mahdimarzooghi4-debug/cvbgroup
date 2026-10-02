@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Pencil, Plus, Trash2 } from "lucide-react";
+import { ORBIT_CAPACITY } from "@/lib/orbit-config";
 
 type OrbitRecord = { id: string; name: string; logoUrl: string; websiteUrl: string; orbit: number; sortOrder: number; visible: boolean };
 type OrbitForm = Omit<OrbitRecord, "id">;
@@ -48,7 +49,7 @@ export function OrbitsManager() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? "ذخیره انجام نشد.");
       await load(); setNotice(editingId ? "تغییرات کسب‌وکار ذخیره شد." : "کسب‌وکار به مدار اضافه شد.");
-      if (!editingId) setForm({ ...blankOrbit, orbit: form.orbit, sortOrder: Math.min(8, (counts[form.orbit - 1] ?? 0) + 1) });
+      if (!editingId) setForm({ ...blankOrbit, orbit: form.orbit, sortOrder: Math.min(ORBIT_CAPACITY, (counts[form.orbit - 1] ?? 0) + 1) });
     } catch (cause) { setError(cause instanceof Error ? cause.message : "ذخیره انجام نشد."); }
     finally { setBusy(false); }
   }
@@ -65,14 +66,14 @@ export function OrbitsManager() {
   return (
     <div className="admin-workspace orbit-admin-workspace">
       <section className="admin-panel-card manager-form-card">
-        <div className="admin-section-heading"><div><h2>{editingId ? "ویرایش عضو مدار" : "افزودن به مدار"}</h2><p>هر مدار حداکثر ۸ کسب‌وکار می‌پذیرد.</p></div><button className="manager-new-button" type="button" onClick={reset}><Plus size={16} /> جدید</button></div>
-        <div className="orbit-counts">{counts.map((count, index) => <span key={index}>مدار {index + 1}<b>{count} / ۸</b></span>)}</div>
+        <div className="admin-section-heading"><div><h2>{editingId ? "ویرایش عضو مدار" : "افزودن به مدار"}</h2><p>هر مدار حداکثر ۳ کسب‌وکار می‌پذیرد.</p></div><button className="manager-new-button" type="button" onClick={reset}><Plus size={16} /> جدید</button></div>
+        <div className="orbit-counts">{counts.map((count, index) => <span key={index}>مدار {index + 1}<b>{count} / {ORBIT_CAPACITY}</b></span>)}</div>
         <form className="admin-data-form" onSubmit={submit}>
           <label className="span-two">نام نمایشی کسب‌وکار<input value={form.name} onChange={(e) => update("name", e.target.value)} required maxLength={160} /></label>
           <label className="span-two">نشانی لوگو<input value={form.logoUrl} onChange={(e) => update("logoUrl", e.target.value)} required placeholder="/assets/brands/... یا https://..." dir="ltr" /></label>
           <label className="span-two">نشانی مقصد کلیک<input type="text" value={form.websiteUrl} onChange={(e) => update("websiteUrl", e.target.value)} required dir="ltr" placeholder="https:// یا /startups/..." /></label>
-          <label>مدار<select value={form.orbit} onChange={(e) => { const orbit = Number(e.target.value); update("orbit", orbit); update("sortOrder", Math.min(8, (counts[orbit - 1] ?? 0) + 1)); }}><option value={1}>مدار اول</option><option value={2}>مدار دوم</option><option value={3}>مدار سوم</option></select></label>
-          <label>ترتیب گردش<input type="number" value={form.sortOrder} onChange={(e) => update("sortOrder", Number(e.target.value))} min={1} max={8} required /></label>
+          <label>مدار<select value={form.orbit} onChange={(e) => { const orbit = Number(e.target.value); update("orbit", orbit); update("sortOrder", Math.min(ORBIT_CAPACITY, (counts[orbit - 1] ?? 0) + 1)); }}><option value={1}>مدار اول</option><option value={2}>مدار دوم</option><option value={3}>مدار سوم</option></select></label>
+          <label>ترتیب گردش<input type="number" value={form.sortOrder} onChange={(e) => update("sortOrder", Number(e.target.value))} min={1} max={ORBIT_CAPACITY} required /></label>
           <label className="checkbox-label"><input type="checkbox" checked={form.visible} onChange={(e) => update("visible", e.target.checked)} /> نمایش در بخش درباره ما</label>
           <div className="manager-form-actions"><button className="admin-primary-button" type="submit" disabled={busy}>{busy ? "در حال ذخیره…" : editingId ? "ذخیره تغییرات" : "افزودن به مدار"}</button>{editingId && <button className="admin-quiet-button" type="button" onClick={reset}>لغو ویرایش</button>}</div>
         </form>

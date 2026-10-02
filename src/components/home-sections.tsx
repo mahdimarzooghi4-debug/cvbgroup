@@ -6,6 +6,7 @@ import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
+import { ORBIT_CAPACITY, ORBIT_PERIOD_SECONDS } from "@/lib/orbit-config";
 
 const solutions = [
   { title: "تیم‌سازی", description: "ساخت تیم حرفه‌ای برای کسب‌وکار شما", icon: "team", tint: "rgba(239,68,68,.35)" },
@@ -62,8 +63,6 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
   }, []);
   const orbitMembers = [1, 2, 3].map((orbit) => businesses.filter((business) => business.orbit === orbit));
   const orbitRadii = [98.5, 170.9, 232.85];
-  // Constant distance per second makes each logo move like an independent runner.
-  const runnerSpeeds = [16, 26, 12, 22, 18, 30, 14, 24];
   const logoSizes: Record<string, [number, number]> = {
     "/assets/brands/moon.png": [38, 38], "/assets/brands/henna.png": [38, 38],
     "/assets/brands/negarin.png": [32, 38], "/assets/brands/dena.png": [38, 38],
@@ -74,7 +73,7 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
     <section className="section about-section" id="about">
       <div className="orbit-layout">
         <div className="orbit-visual" ref={visual} style={{ "--orbit-scale": scale } as CSSProperties} aria-label="کسب‌وکارهای گروه نگاه خلاق در مدارهای نوآوری">
-          <div className="orbit-stage">
+          <div className="orbit-stage" style={{ "--orbit-duration": `${ORBIT_PERIOD_SECONDS}s` } as CSSProperties}>
             <Image className="orbit-ring ring-outer" src="/assets/figma/about/orbit-outer.svg" alt="" width={472} height={472} />
             <Image className="orbit-ring ring-middle" src="/assets/figma/about/orbit-middle.svg" alt="" width={348} height={348} />
             <Image className="orbit-ring ring-inner" src="/assets/figma/about/orbit-inner.svg" alt="" width={203} height={203} />
@@ -82,9 +81,8 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
               const external = business.href.startsWith("http");
               const style = {
-                "--orbit-angle": `${index * 30 + position * (360 / members.length)}deg`,
+                "--orbit-angle": `${index * 30 + position * (360 / ORBIT_CAPACITY)}deg`,
                 "--orbit-radius": `${orbitRadii[index]}px`,
-                "--orbit-duration": `${(2 * Math.PI * orbitRadii[index] / runnerSpeeds[position % runnerSpeeds.length]).toFixed(3)}s`,
               } as CSSProperties;
               const [width, height] = logoSizes[business.logo] ?? [38, 38];
               const content = <Image src={business.logo} alt={business.name} width={Math.ceil(width)} height={Math.ceil(height)} style={{ width, height }} unoptimized />;
