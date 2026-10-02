@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useRef } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpLeft, Blocks, Compass, Lightbulb, Rocket, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpLeft, Blocks, Compass, FlaskConical, Lightbulb, Rocket, Search, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
 
 const solutions = [
-  { title: "استراتژی و طراحی کسب‌وکار", icon: Compass },
-  { title: "فناوری و توسعه محصول", icon: Blocks },
-  { title: "راه‌اندازی استارتاپ", icon: Rocket },
-  { title: "رشد و توسعه بازار", icon: Sparkles },
-  { title: "تیم‌سازی و سرمایه انسانی", icon: UsersRound },
-  { title: "نوآوری مسئولانه", icon: Lightbulb },
-  { title: "همراهی تا ورود به بازار", icon: ArrowUpLeft },
-  { title: "زیرساخت پایدار کسب‌وکار", icon: ShieldCheck },
+  { title: "تدوین سند استراتژیک", description: "تعیین اهداف کلان و ترسیم مسیر رشد", icon: Compass },
+  { title: "تحلیل داده‌ها", description: "استفاده از داده‌های کلان برای تصمیم‌گیری", icon: Blocks },
+  { title: "سرمایه‌گذاری هدفمند", description: "سرمایه‌گذاری هوشمند در محدوده استراتژیک", icon: Rocket },
+  { title: "مدیریت ریسک", description: "شناسایی و مدیریت ریسک‌های کسب‌وکار", icon: ShieldCheck },
+  { title: "تیم‌سازی", description: "ساخت تیم حرفه‌ای برای کسب‌وکار شما", icon: UsersRound },
+  { title: "مشاوره کسب‌وکار", description: "راهنمایی حرفه‌ای برای تبدیل ایده به کسب‌وکار", icon: Lightbulb },
+  { title: "راه‌اندازی استارتاپ", description: "از صفر تا صد راه‌اندازی کسب‌وکار دیجیتال", icon: ArrowUpLeft },
+  { title: "رشد و توسعه", description: "استراتژی‌های رشد و بهینه‌سازی کسب‌وکار", icon: Sparkles },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -26,15 +26,16 @@ export function SolutionsSection() {
   return (
     <section className="section solutions-section" id="services">
       <div className="section-heading centered">
-        <SectionLabel>توانمندسازی کسب‌وکار</SectionLabel>
+        <SectionLabel>خدمات ما</SectionLabel>
         <h2>راهکارهای جامع برای موفقیت</h2>
-        <p>از شکل‌گیری ایده تا رسیدن به بازار، در کنار تیم‌ها و کسب‌وکارها هستیم.</p>
+        <p>تیم ما با بهره‌گیری از جدیدترین متدها، کسب‌وکار شما را به سطح بعدی می‌برد.</p>
       </div>
       <div className="solutions-grid">
-        {solutions.map(({ title, icon: Icon }, index) => (
+        {solutions.map(({ title, description, icon: Icon }, index) => (
           <article className="solution-card" key={title}>
             <span className={`solution-icon tone-${index % 4}`}><Icon size={21} strokeWidth={1.8} /></span>
             <h3>{title}</h3>
+            <p>{description}</p>
             <span className="card-arrow" aria-hidden="true"><ArrowLeft size={16} /></span>
           </article>
         ))}
@@ -56,21 +57,34 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             const external = business.href.startsWith("http");
             const membersOnOrbit = businesses.filter((item) => item.orbit === business.orbit);
             const position = membersOnOrbit.findIndex((item) => item.slug === business.slug);
-            const className = `orbit-logo orbit-track-${business.orbit} orbit-speed-${business.orbit}`;
+            const className = `orbit-node orbit-track-${business.orbit}`;
             const style = { "--orbit-angle": `${position * (360 / Math.max(1, membersOnOrbit.length))}deg` } as CSSProperties;
-            const content = <Image src={business.logo} alt={business.name} width={40} height={40} unoptimized />;
-            return external ? (
-              <a className={className} style={style} href={business.href} key={business.slug} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noreferrer">{content}</a>
-            ) : (
-              <Link className={className} style={style} href={business.href} key={business.slug} aria-label={`مشاهده ${business.name}`}>{content}</Link>
+            const content = (
+              <span className="orbit-logo">
+                <Image src={business.logo} alt={business.name} width={40} height={40} unoptimized />
+              </span>
+            );
+            return (
+              <div className={className} style={style} key={business.slug}>
+                {external ? (
+                  <a href={business.href} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noreferrer">{content}</a>
+                ) : (
+                  <Link href={business.href} aria-label={`مشاهده ${business.name}`}>{content}</Link>
+                )}
+              </div>
             );
           })}
         </div>
         <div className="about-copy">
           <SectionLabel>درباره ما</SectionLabel>
           <h2>مادر صنعت نوآوری</h2>
-          <p className="about-lead">کارخانهٔ تولید و توسعهٔ کسب‌وکار؛ از ایده تا بازار، کنار سازندگان آینده.</p>
-          <p className="about-english">We bring together strategy, technology, product development, and growth support to help new ventures move from concept to market.</p>
+          <p className="about-lead">کارخانه تولید کسب‌وکارهای جسور</p>
+          <p className="about-description">ما یک تیم متخصص و حرفه‌ای هستیم که با بهره‌گیری از جدیدترین تکنولوژی‌ها و متدهای روز دنیا، ایده‌های شما را به کسب‌وکارهای موفق و پرسود تبدیل می‌کنیم. با بیش از یک دهه تجربه در حوزه راه‌اندازی و توسعه کسب‌وکار، ما همراه شما در مسیر موفقیت هستیم. تیم ما متشکل از متخصصان برتر در زمینه‌های مختلف از جمله توسعه نرم‌افزار، بازاریابی دیجیتال، مدیریت پروژه و مشاوره کسب‌وکار است.</p>
+          <div className="about-stats" dir="rtl">
+            <div><strong>+۵۰</strong><span>پروژه موفق</span></div>
+            <div><strong>۹۵٪</strong><span>رضایت مشتری</span></div>
+            <div><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
+          </div>
           <Link href="#startups" className="text-link">آشنایی با کسب‌وکارهای ما <ArrowLeft size={17} /></Link>
         </div>
       </div>
@@ -79,19 +93,26 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
 }
 
 export function ProcessSection() {
-  const steps = ["ایده", "تیم", "محصول", "بازار"];
+  const steps = [
+    { label: "شناخت", icon: Search, position: "process-northwest" },
+    { label: "ایده‌پردازی", icon: Lightbulb, position: "process-northeast" },
+    { label: "آمادگی", icon: Blocks, position: "process-southwest" },
+    { label: "اعتبارسنجی", icon: FlaskConical, position: "process-southeast" },
+  ];
   return (
     <section className="section process-section">
       <div className="section-heading centered">
-        <SectionLabel>از ایده تا بازار</SectionLabel>
-        <h2>ما چطور کنار شما هستیم؟</h2>
+        <SectionLabel>مسیر راه‌اندازی کسب‌وکار شما</SectionLabel>
+        <h2>ما چطوری کار می‌کنیم؟</h2>
       </div>
-      <div className="process-path" aria-label="فرآیند توسعه کسب‌وکار">
-        <div className="process-line" />
-        {steps.map((step, index) => (
-          <div className={`process-step step-${index + 1}`} key={step}>
-            <span className="process-dot">{index + 1}</span>
-            <span className="process-name">{step}</span>
+      <div className="process-diagram" aria-label="شناخت، ایده‌پردازی، آمادگی، اعتبارسنجی، نمونه اولیه و زاویه دید">
+        <span className="process-caption caption-top">نمونه اولیه</span>
+        <span className="process-caption caption-bottom">زاویه دید</span>
+        <div className="process-links" aria-hidden="true"><i /><i /><i /><i /></div>
+        {steps.map(({ label, icon: Icon, position }) => (
+          <div className={`process-node ${position}`} key={label}>
+            <span><Icon size={22} strokeWidth={1.7} /></span>
+            <small>{label}</small>
           </div>
         ))}
         <div className="process-center"><Image src="/assets/figma/brand.png" alt="نگاه خلاق" width={28} height={28} /></div>
@@ -109,9 +130,9 @@ export function StartupsSection({ startups }: { startups: Startup[] }) {
     <section className="section startups-section" id="startups">
       <div className="startup-heading-row">
         <div className="section-heading">
-          <SectionLabel>همراهان نوآوری</SectionLabel>
-          <h2>استارتاپ‌های نگاه خلاق</h2>
-          <p>کسب‌وکارهایی که با همراهی هم رشد می‌کنند.</p>
+          <SectionLabel>کسب‌وکارهای ما</SectionLabel>
+          <h2>استارتاپ‌های جدید</h2>
+          <p>با کسب‌وکارهایی که در گروه کسب و کار نگاه خلاق ساخته‌ایم آشنا شوید.</p>
         </div>
         <div className="scroll-buttons" aria-label="پیمایش استارتاپ‌ها">
           <button type="button" onClick={() => scroll(1)} aria-label="حرکت به کارت‌های بعدی"><ArrowRight size={18} /></button>
@@ -121,8 +142,7 @@ export function StartupsSection({ startups }: { startups: Startup[] }) {
       <div className="startup-scroller" ref={scroller} dir="rtl" tabIndex={0} aria-label="فهرست قابل پیمایش استارتاپ‌ها">
         {startups.filter((startup) => startup.published).map((startup) => (
           <Link className="startup-card" href={`/startups/${startup.slug}`} key={startup.slug}>
-            <div className="startup-logo"><Image src={startup.logo} alt="" width={54} height={54} unoptimized /></div>
-            <h3>{startup.name}</h3>
+            <div className="startup-logo"><Image src={startup.logo} alt="" width={54} height={54} unoptimized /><strong>{startup.name}</strong></div>
             <p>{startup.description}</p>
             <span className="startup-card-link">مشاهده کسب‌وکار <ArrowLeft size={15} /></span>
           </Link>

@@ -18,11 +18,16 @@ export default async function HomePage() {
         <SiteHeader />
         <div className="hero-content">
           <span className="hero-eyebrow">نگاه خلاق؛ مادر صنعت نوآوری</span>
-          <h1 id="hero-title">کارخانهٔ تولید<br /><span>کسب‌وکار</span></h1>
-          <p>از ایده تا بازار، برای ساخت و رشد کسب‌وکارهای آینده کنار شما هستیم.</p>
+          <h1 id="hero-title">کارخانه تولید<br /><span>کسب‌وکار</span></h1>
+          <p>با استفاده از جدیدترین تکنولوژی‌ها و تیم متخصص، ایده‌های شما را به کسب‌وکارهای پرسود و موفق تبدیل می‌کنیم.</p>
           <div className="hero-actions">
-            <a className="primary-button" href="#startups">دیدن کسب‌وکارها <ArrowLeft size={17} /></a>
+            <a className="primary-button" href="#contact">شروع همکاری <ArrowLeft size={17} /></a>
             <a className="secondary-button" href="#about">درباره نگاه خلاق</a>
+          </div>
+          <div className="hero-stats" dir="rtl">
+            <div><strong>+۵۰</strong><span>پروژه موفق</span></div>
+            <div><strong>۹۵٪</strong><span>رضایت مشتری</span></div>
+            <div><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
           </div>
           <a className="hero-scroll" href="#services" aria-label="رفتن به بخش بعدی"><ArrowDown size={16} /></a>
         </div>
@@ -37,8 +42,8 @@ export default async function HomePage() {
         <section className="section contact-section" id="contact">
           <div className="contact-intro">
             <span className="section-label">ارتباط با ما</span>
-            <h2>با هم شروع کنیم</h2>
-            <p>برای آشنایی بیشتر یا گفت‌وگو دربارهٔ همکاری، برای ما پیام بگذارید.</p>
+            <h2>تماس با ما</h2>
+            <p>برای مشاوره رایگان و شروع همکاری با ما در تماس باشید.</p>
             <div className="contact-details">
               <a href={`tel:${footer.phone.replaceAll("-", "")}`}><span className="contact-icon">☎</span><span><small>تلفن تماس</small>{footer.phone}</span></a>
               <a href={`mailto:${footer.email}`}><span className="contact-icon">✉</span><span><small>پست الکترونیکی</small>{footer.email}</span></a>
@@ -47,8 +52,8 @@ export default async function HomePage() {
           </div>
           <div className="contact-form-panel">
             <div className="contact-form-heading">
-              <h3>فرم تماس</h3>
-              <span>در اولین فرصت پاسخ می‌دهیم.</span>
+              <h3>فرم تماس با ما</h3>
+              <span>پیام خود را برای ما ارسال کنید.</span>
             </div>
             <ContactForm />
           </div>
