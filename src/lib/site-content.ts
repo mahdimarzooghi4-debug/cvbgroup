@@ -90,6 +90,7 @@ export const orbitBusinesses: OrbitBusiness[] = [
   { ...approvedStartups[5], href: "/startups/cube", orbit: 3 },
   { ...approvedStartups[6], href: "https://myfunnel.ir", orbit: 1 },
   { ...approvedStartups[7], href: "/startups/mono", orbit: 2 },
+  { slug: "teknik", name: "تکنیک", description: "", logo: "/assets/brands/teknik-placeholder.svg", href: "/#contact", orbit: 3 },
 ];
 
 export const siteFooterDefaults = {
