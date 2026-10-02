@@ -63,6 +63,7 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
   }, []);
   const orbitMembers = [1, 2, 3].map((orbit) => businesses.filter((business) => business.orbit === orbit));
   const orbitRadii = [98.5, 170.9, 232.85];
+  const orbitPhases = [0, 60, 30];
   const logoSizes: Record<string, [number, number]> = {
     "/assets/brands/moon.png": [38, 38], "/assets/brands/henna.png": [38, 38],
     "/assets/brands/negarin.png": [32, 38], "/assets/brands/dena.png": [38, 38],
@@ -82,7 +83,7 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
               const external = business.href.startsWith("http");
               const style = {
-                "--orbit-angle": `${(index % 2) * 60 + position * (360 / ORBIT_CAPACITY)}deg`,
+                "--orbit-angle": `${orbitPhases[index] + position * (360 / ORBIT_CAPACITY)}deg`,
                 "--orbit-radius": `${orbitRadii[index]}px`,
               } as CSSProperties;
               const [width, height] = logoSizes[business.logo] ?? [38, 38];
