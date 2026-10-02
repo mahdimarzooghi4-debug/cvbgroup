@@ -22,7 +22,7 @@ button { color: inherit; }
 ::selection { color: #080f23; background: #a8a4ff; }
 
 .site-shell { overflow: hidden; background: var(--navy); }
-.hero { min-height: 838px; position: relative; isolation: isolate; padding: 23px 20px 0; overflow: hidden; background: linear-gradient(90deg, #193e6e, #1b2545); font-family: "Peyda(FaNum)", "Vazirmatn", sans-serif; }
+.hero { min-height: 838px; position: relative; isolation: isolate; padding: 23px 20px 0; overflow: hidden; background: linear-gradient(90deg, #193e6e, #1b2545); font-family: "Vazirmatn", sans-serif; }
 .hero::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center top / 100% 100% no-repeat; pointer-events: none; }
 .hero-stars { position: absolute; z-index: -1; inset: 191px 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center / 100% 100% no-repeat; transform: scaleY(-1); pointer-events: none; }
 .hero-earth { position: absolute; z-index: -1; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1440px); height: auto; object-fit: contain; }
