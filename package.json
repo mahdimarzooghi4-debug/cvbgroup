@@ -1,0 +1,53 @@
+{
+  "name": "cvbgroup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website and lightweight admin for Creative Vision Business Group",
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx src/db/seed.ts",
+    "admin:hash": "tsx scripts/create-admin-hash.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahdimarzooghi4-debug/cvbgroup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mahdimarzooghi4-debug/cvbgroup/issues"
+  },
+  "homepage": "https://github.com/mahdimarzooghi4-debug/cvbgroup#readme",
+  "dependencies": {
+    "@fontsource/vazirmatn": "^5.3.0",
+    "bcryptjs": "^3.0.3",
+    "drizzle-orm": "^0.45.3",
+    "jose": "^6.2.12",
+    "lucide-react": "^1.49.0",
+    "next": "^16.3.8",
+    "postgres": "^3.4.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}
