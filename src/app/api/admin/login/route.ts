@@ -3,17 +3,17 @@ import { compare } from "bcryptjs";
 import { z } from "zod";
 import { createAdminSession } from "@/lib/admin-auth";
 
-const loginSchema = z.object({ email: z.string().trim().email().max(254), password: z.string().min(1).max(256) });
+const loginSchema = z.object({ username: z.string().trim().min(1).max(64), password: z.string().min(1).max(256) });
 
 export async function POST(request: Request) {
   const values = loginSchema.safeParse(await request.json().catch(() => null));
-  if (!values.success) return NextResponse.json({ error: "ایمیل یا گذرواژه معتبر نیست." }, { status: 400 });
-  const expectedEmail = process.env.ADMIN_EMAIL;
+  if (!values.success) return NextResponse.json({ error: "نام کاربری یا گذرواژه معتبر نیست." }, { status: 400 });
+  const expectedUsername = process.env.ADMIN_USERNAME;
   const passwordHash = process.env.ADMIN_PASSWORD_HASH;
-  if (!expectedEmail || !passwordHash) return NextResponse.json({ error: "ورود مدیر هنوز پیکربندی نشده است." }, { status: 503 });
-  const emailMatches = values.data.email.toLowerCase() === expectedEmail.toLowerCase();
+  if (!expectedUsername || !passwordHash) return NextResponse.json({ error: "ورود مدیر هنوز پیکربندی نشده است." }, { status: 503 });
+  const usernameMatches = values.data.username.toLowerCase() === expectedUsername.toLowerCase();
   const passwordMatches = await compare(values.data.password, passwordHash).catch(() => false);
-  if (!emailMatches || !passwordMatches) return NextResponse.json({ error: "ایمیل یا گذرواژه اشتباه است." }, { status: 401 });
+  if (!usernameMatches || !passwordMatches) return NextResponse.json({ error: "نام کاربری یا گذرواژه اشتباه است." }, { status: 401 });
   try {
     await createAdminSession();
     return NextResponse.json({ ok: true });
