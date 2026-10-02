@@ -21,7 +21,7 @@ const result = await db.transaction(async (tx) => {
   await tx.insert(orbitBusinesses).values({
     name: "تکنیک",
     logoUrl: "/assets/brands/teknik-placeholder.svg",
-    websiteUrl: "/#contact",
+    websiteUrl: "",
     orbit: 3,
     sortOrder: slot,
     visible: true,

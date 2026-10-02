@@ -99,7 +99,7 @@ export function StartupsManager() {
         <div className="admin-section-heading"><div><h2>{editingId ? "ویرایش استارتاپ" : "افزودن استارتاپ"}</h2><p>استارتاپ تازه پس از ذخیره در رتبهٔ اول فهرست قرار می‌گیرد.</p></div><button className="manager-new-button" type="button" onClick={resetForm}><Plus size={16} /> جدید</button></div>
         <form className="admin-data-form" onSubmit={submit}>
           <label>نام استارتاپ<input value={form.name} onChange={(e) => change("name", e.target.value)} required maxLength={160} /></label>
-          <label>شناسهٔ صفحه<input value={form.slug} onChange={(e) => change("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxLength={100} dir="ltr" /></label>
+          <label>شناسهٔ کسب‌وکار<input value={form.slug} onChange={(e) => change("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxLength={100} dir="ltr" /></label>
           <label className="span-two">توضیح کوتاه<textarea value={form.description} onChange={(e) => change("description", e.target.value)} required rows={3} maxLength={500} /></label>
           <label className="span-two">نشانی لوگو<input value={form.logoUrl} onChange={(e) => change("logoUrl", e.target.value)} required placeholder="/assets/brands/... یا https://..." dir="ltr" /></label>
           <label>آدرس وب‌سایت کسب‌وکار<input value={form.websiteUrl ?? ""} onChange={(e) => change("websiteUrl", e.target.value)} type="url" dir="ltr" /></label>
@@ -117,8 +117,8 @@ export function StartupsManager() {
         {notice && <div className="admin-alert success">{notice}</div>}
         {error && <div className="admin-alert error" role="alert">{error}</div>}
         {loading ? <p className="admin-empty">در حال بارگذاری…</p> : items.length === 0 ? <p className="admin-empty">هنوز استارتاپی ثبت نشده است.</p> : (
-          <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>ترتیب</th><th>نام</th><th>صفحه</th><th>انتشار</th><th>عملیات</th></tr></thead><tbody>
-            {items.map((item) => <tr key={item.id}><td>{item.sortOrder}</td><td><strong>{item.name}</strong><small>{item.slug}</small></td><td dir="ltr">{item.pageUrl}</td><td><span className={`admin-status ${item.published ? "published" : "draft"}`}>{item.published ? "منتشرشده" : "پیش‌نویس"}</span></td><td><div className="row-actions"><button onClick={() => selectItem(item)} type="button" aria-label={`ویرایش ${item.name}`}><Pencil size={15} /></button><button className="delete" onClick={() => void remove(item)} type="button" aria-label={`حذف ${item.name}`}><Trash2 size={15} /></button></div></td></tr>)}
+          <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>ترتیب</th><th>نام</th><th>وب‌سایت</th><th>انتشار</th><th>عملیات</th></tr></thead><tbody>
+            {items.map((item) => <tr key={item.id}><td>{item.sortOrder}</td><td><strong>{item.name}</strong><small>{item.slug}</small></td><td dir="ltr">{item.websiteUrl || "—"}</td><td><span className={`admin-status ${item.published ? "published" : "draft"}`}>{item.published ? "منتشرشده" : "پیش‌نویس"}</span></td><td><div className="row-actions"><button onClick={() => selectItem(item)} type="button" aria-label={`ویرایش ${item.name}`}><Pencil size={15} /></button><button className="delete" onClick={() => void remove(item)} type="button" aria-label={`حذف ${item.name}`}><Trash2 size={15} /></button></div></td></tr>)}
           </tbody></table></div>
         )}
       </section>

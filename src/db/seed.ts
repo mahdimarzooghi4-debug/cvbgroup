@@ -16,7 +16,7 @@ await db.transaction(async (tx) => {
         slug: item.slug,
         description: item.description,
         logoUrl: item.logo,
-        pageUrl: `/startups/${item.slug}`,
+        pageUrl: "",
         websiteUrl: item.websiteUrl ?? null,
         email: item.email ?? null,
         address: item.address ?? null,

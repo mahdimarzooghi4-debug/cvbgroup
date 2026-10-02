@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { ORBIT_CAPACITY } from "@/lib/orbit-config";
+import { businessWebsite } from "@/lib/business-website";
 
 type OrbitRecord = { id: string; name: string; logoUrl: string; websiteUrl: string; orbit: number; sortOrder: number; visible: boolean };
 type OrbitForm = Omit<OrbitRecord, "id">;
@@ -38,7 +39,7 @@ export function OrbitsManager() {
     return () => { active = false; };
   }, [fetchItems]);
 
-  function edit(item: OrbitRecord) { setEditingId(item.id); setForm({ name: item.name, logoUrl: item.logoUrl, websiteUrl: item.websiteUrl, orbit: item.orbit, sortOrder: item.sortOrder, visible: item.visible }); }
+  function edit(item: OrbitRecord) { setEditingId(item.id); setForm({ name: item.name, logoUrl: item.logoUrl, websiteUrl: businessWebsite(item.websiteUrl) ?? "", orbit: item.orbit, sortOrder: item.sortOrder, visible: item.visible }); }
   function reset() { setEditingId(null); setForm({ ...blankOrbit, orbit: form.orbit }); setNotice(""); }
   function update<K extends keyof OrbitForm>(key: K, value: OrbitForm[K]) { setForm((current) => ({ ...current, [key]: value })); }
 
@@ -71,7 +72,7 @@ export function OrbitsManager() {
         <form className="admin-data-form" onSubmit={submit}>
           <label className="span-two">نام نمایشی کسب‌وکار<input value={form.name} onChange={(e) => update("name", e.target.value)} required maxLength={160} /></label>
           <label className="span-two">نشانی لوگو<input value={form.logoUrl} onChange={(e) => update("logoUrl", e.target.value)} required placeholder="/assets/brands/... یا https://..." dir="ltr" /></label>
-          <label className="span-two">نشانی مقصد کلیک<input type="text" value={form.websiteUrl} onChange={(e) => update("websiteUrl", e.target.value)} required dir="ltr" placeholder="https:// یا /startups/..." /></label>
+          <label className="span-two">آدرس وب‌سایت کسب‌وکار<input type="url" value={form.websiteUrl} onChange={(e) => update("websiteUrl", e.target.value)} dir="ltr" placeholder="https://..." /></label>
           <label>مدار<select value={form.orbit} onChange={(e) => { const orbit = Number(e.target.value); update("orbit", orbit); update("sortOrder", Math.min(ORBIT_CAPACITY, (counts[orbit - 1] ?? 0) + 1)); }}><option value={1}>مدار اول</option><option value={2}>مدار دوم</option><option value={3}>مدار سوم</option></select></label>
           <label>ترتیب گردش<input type="number" value={form.sortOrder} onChange={(e) => update("sortOrder", Number(e.target.value))} min={1} max={ORBIT_CAPACITY} required /></label>
           <label className="checkbox-label"><input type="checkbox" checked={form.visible} onChange={(e) => update("visible", e.target.checked)} /> نمایش در بخش درباره ما</label>
@@ -79,9 +80,9 @@ export function OrbitsManager() {
         </form>
       </section>
       <section className="admin-panel-card manager-list-card">
-        <div className="admin-section-heading"><div><h2>اعضای مدارها</h2><p>برای هر لوگو نشانی مقصد و مدار گردش را تعیین کنید.</p></div><span className="admin-count-pill">{loading ? "…" : items.length}</span></div>
+        <div className="admin-section-heading"><div><h2>اعضای مدارها</h2><p>نشانی ثبت‌شده در مدیریت استارتاپ‌ها استفاده می‌شود؛ برای سایر اعضا آدرس را اینجا وارد کنید.</p></div><span className="admin-count-pill">{loading ? "…" : items.length}</span></div>
         {notice && <div className="admin-alert success">{notice}</div>}{error && <div className="admin-alert error" role="alert">{error}</div>}
-        {loading ? <p className="admin-empty">در حال بارگذاری…</p> : items.length === 0 ? <p className="admin-empty">هنوز کسب‌وکاری به مدار اضافه نشده است.</p> : <div className="orbit-admin-list">{items.map((item) => <article className="orbit-admin-row" key={item.id}><div className="orbit-admin-logo"><Image src={item.logoUrl} alt="" width={40} height={40} unoptimized /></div><div className="orbit-admin-info"><strong>{item.name}</strong><small>{item.websiteUrl}</small></div><span className="orbit-badge">مدار {item.orbit} · {item.sortOrder}</span><span className={`admin-status ${item.visible ? "published" : "draft"}`}>{item.visible ? "نمایش" : "مخفی"}</span><div className="row-actions"><button type="button" onClick={() => edit(item)} aria-label={`ویرایش ${item.name}`}><Pencil size={15} /></button><button className="delete" type="button" onClick={() => void remove(item)} aria-label={`حذف ${item.name}`}><Trash2 size={15} /></button></div></article>)}</div>}
+        {loading ? <p className="admin-empty">در حال بارگذاری…</p> : items.length === 0 ? <p className="admin-empty">هنوز کسب‌وکاری به مدار اضافه نشده است.</p> : <div className="orbit-admin-list">{items.map((item) => <article className="orbit-admin-row" key={item.id}><div className="orbit-admin-logo"><Image src={item.logoUrl} alt="" width={40} height={40} unoptimized /></div><div className="orbit-admin-info"><strong>{item.name}</strong><small>{businessWebsite(item.websiteUrl) || "نشانی را در استارتاپ‌ها یا این بخش ثبت کنید"}</small></div><span className="orbit-badge">مدار {item.orbit} · {item.sortOrder}</span><span className={`admin-status ${item.visible ? "published" : "draft"}`}>{item.visible ? "نمایش" : "مخفی"}</span><div className="row-actions"><button type="button" onClick={() => edit(item)} aria-label={`ویرایش ${item.name}`}><Pencil size={15} /></button><button className="delete" type="button" onClick={() => void remove(item)} aria-label={`حذف ${item.name}`}><Trash2 size={15} /></button></div></article>)}</div>}
       </section>
     </div>
   );

@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
 import { ORBIT_CAPACITY, ORBIT_PERIOD_SECONDS } from "@/lib/orbit-config";
+import { businessWebsite } from "@/lib/business-website";
 
 const solutions = [
   { title: "تیم‌سازی", description: "ساخت تیم حرفه‌ای برای کسب‌وکار شما", icon: "team", tint: "rgba(239,68,68,.35)" },
@@ -81,7 +81,7 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             <Image className="orbit-center" src="/assets/figma/brand.png" alt="گروه کسب و کار نگاه خلاق" width={88} height={70} />
             <div className="orbit-revolution">
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
-              const external = business.href.startsWith("http");
+              const website = businessWebsite(business.href);
               const style = {
                 "--orbit-angle": `${orbitPhases[index] + position * (360 / ORBIT_CAPACITY)}deg`,
                 "--orbit-radius": `${orbitRadii[index]}px`,
@@ -90,10 +90,10 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
               const content = <Image src={business.logo} alt={business.name} width={Math.ceil(width)} height={Math.ceil(height)} style={{ width, height }} unoptimized />;
               return (
                 <div className={`orbit-node orbit-track-${index + 1}`} style={style} key={business.slug}>
-                  {external ? (
-                    <a className="orbit-logo" href={business.href} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noreferrer">{content}</a>
+                  {website ? (
+                    <a className="orbit-logo" href={website} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noopener noreferrer">{content}</a>
                   ) : (
-                    <Link className="orbit-logo" href={business.href} aria-label={`مشاهده ${business.name}`}>{content}</Link>
+                    <span className="orbit-logo" aria-label={business.name}>{content}</span>
                   )}
                 </div>
               );
@@ -189,13 +189,17 @@ export function StartupsSection({ startups }: { startups: Startup[] }) {
         </div>
       </div>
       <div className="startup-scroller" ref={scroller} dir="rtl" tabIndex={0} aria-label="فهرست قابل پیمایش استارتاپ‌ها">
-        {startups.filter((startup) => startup.published).map((startup) => (
-          <Link className="startup-card" href={`/startups/${startup.slug}`} key={startup.slug}>
+        {startups.filter((startup) => startup.published).map((startup) => {
+          const website = businessWebsite(startup.websiteUrl);
+          const content = <>
             <div className="startup-logo"><Image src={startup.logo} alt="" width={54} height={54} unoptimized /><strong>{startup.name}</strong></div>
             <p>{startup.description}</p>
-            <span className="startup-card-link">مشاهده کسب‌وکار <ArrowLeft size={15} /></span>
-          </Link>
-        ))}
+            {website && <span className="startup-card-link">ورود به وب‌سایت <ArrowLeft size={15} /></span>}
+          </>;
+          return website
+            ? <a className="startup-card" href={website} key={startup.slug} target="_blank" rel="noopener noreferrer">{content}</a>
+            : <article className="startup-card" key={startup.slug}>{content}</article>;
+        })}
       </div>
     </section>
   );
