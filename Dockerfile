@@ -15,6 +15,7 @@ FROM deps AS migrator
 COPY drizzle.config.ts tsconfig.json ./
 COPY drizzle ./drizzle
 COPY src ./src
+COPY scripts ./scripts
 CMD ["npm", "run", "db:migrate"]
 
 FROM node:22-bookworm-slim AS runner
