@@ -3,6 +3,7 @@ import { asc, eq, sql } from "drizzle-orm";
 import { getDb } from "@/db";
 import { orbitBusinesses } from "@/db/schema";
 import { orbitSchema } from "@/lib/admin-validation";
+import { ORBIT_CAPACITY } from "@/lib/orbit-config";
 import { requireAdmin } from "@/lib/require-admin";
 
 export async function GET() {
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
     const row = await db.transaction(async (tx) => {
       await tx.execute(sql`LOCK TABLE ${orbitBusinesses} IN EXCLUSIVE MODE`);
       const sameOrbit = await tx.select().from(orbitBusinesses).where(eq(orbitBusinesses.orbit, parsed.data.orbit)).orderBy(asc(orbitBusinesses.sortOrder));
-      if (sameOrbit.length >= 8) throw new Error("ORBIT_FULL");
+      if (sameOrbit.length >= ORBIT_CAPACITY) throw new Error("ORBIT_FULL");
       const sortOrder = Math.min(parsed.data.sortOrder, sameOrbit.length + 1);
       await tx.update(orbitBusinesses).set({ sortOrder: sql`${orbitBusinesses.sortOrder} + 1000000`, updatedAt: new Date() }).where(eq(orbitBusinesses.orbit, parsed.data.orbit));
       for (let i = 0; i < sameOrbit.length; i++) {
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(row, { status: 201 });
   } catch (cause) {
-    if (cause instanceof Error && cause.message === "ORBIT_FULL") return NextResponse.json({ error: "هر مدار حداکثر ۸ کسب‌وکار می‌پذیرد." }, { status: 409 });
+    if (cause instanceof Error && cause.message === "ORBIT_FULL") return NextResponse.json({ error: "هر مدار حداکثر ۳ کسب‌وکار می‌پذیرد." }, { status: 409 });
     return NextResponse.json({ error: "افزودن کسب‌وکار به مدار انجام نشد." }, { status: 500 });
   }
 }

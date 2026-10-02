@@ -29,7 +29,7 @@ export async function PATCH(request: Request, context: Context) {
       await tx.update(startups).set({ sortOrder: sql`${startups.sortOrder} + 1000000`, updatedAt: new Date() });
       for (let i = 0; i < rows.length; i++) {
         const values = rows[i].id === id
-          ? { ...parsed.data, sortOrder: i + 1, pageUrl: `/startups/${parsed.data.slug}`, updatedAt: new Date() }
+          ? { ...parsed.data, sortOrder: i + 1, pageUrl: "", updatedAt: new Date() }
           : { sortOrder: i + 1, updatedAt: new Date() };
         await tx.update(startups).set(values).where(eq(startups.id, rows[i].id));
       }

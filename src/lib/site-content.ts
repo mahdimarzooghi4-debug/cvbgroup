@@ -82,19 +82,20 @@ export const approvedStartups: Startup[] = [
 ];
 
 export const orbitBusinesses: OrbitBusiness[] = [
-  { ...approvedStartups[0], href: "/startups/dena", orbit: 1 },
-  { ...approvedStartups[1], href: "/startups/negarin", orbit: 2 },
-  { ...approvedStartups[2], href: "/startups/henna", orbit: 3 },
+  { ...approvedStartups[0], href: "", orbit: 1 },
+  { ...approvedStartups[1], href: "", orbit: 2 },
+  { ...approvedStartups[2], href: "", orbit: 3 },
   { ...approvedStartups[3], href: "https://mahcsr.ir", orbit: 1 },
-  { ...approvedStartups[4], href: "/startups/parcham", orbit: 2 },
-  { ...approvedStartups[5], href: "/startups/cube", orbit: 3 },
+  { ...approvedStartups[4], href: "", orbit: 2 },
+  { ...approvedStartups[5], href: "", orbit: 3 },
   { ...approvedStartups[6], href: "https://myfunnel.ir", orbit: 1 },
-  { ...approvedStartups[7], href: "/startups/mono", orbit: 2 },
+  { ...approvedStartups[7], href: "", orbit: 2 },
+  { slug: "teknik", name: "تکنیک", description: "", logo: "/assets/brands/teknik-placeholder.svg", href: "", orbit: 3 },
 ];
 
 export const siteFooterDefaults = {
   brandDescription:
-    "We bring together strategy, technology, product development, and growth support to help new ventures move from concept to market.",
+    "ما با ارائه راهکارهای نوآورانه، کسب‌وکار شما را به سطح بعدی می‌بریم",
   phone: "۰۲۱-۶۶۴۸۵۳۷۴",
   email: "info@cvbgroup.ir",
   address: "تهران، خیابان انقلاب-خیابان رازی-کوچه شهبازیان-پلاک۲۲",

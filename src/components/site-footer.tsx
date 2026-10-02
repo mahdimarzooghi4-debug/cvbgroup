@@ -11,7 +11,6 @@ export function SiteFooter({ footer }: { footer: FooterData }) {
           <Image className="footer-brand-mark" src={footer.brandLogoUrl} alt="نشان نگاه خلاق" width={45} height={38} unoptimized />
           <div className="footer-brand-title">
             <strong>گروه کسب‌وکار نگاه خلاق</strong>
-            <span>مادر صنعت نوآوری</span>
           </div>
           <p>{footer.brandDescription}</p>
           <div className="footer-socials">
