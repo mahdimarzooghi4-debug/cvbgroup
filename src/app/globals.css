@@ -59,8 +59,7 @@ button { color: inherit; }
 .hero-stats strong { color: white; font-size: 29px; line-height: 38px; font-weight: 800; }
 .hero-stats span { color: white; font-size: 14px; line-height: 22px; }
 
-.main-content { position: relative; isolation: isolate; margin-top: 0; background: #0b1530; }
-.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: 50%; width: calc(100vw * 2872 / 1440); aspect-ratio: 1; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 20%, #223a64, #0b1530 60%); pointer-events: none; }
+.main-content { position: relative; isolation: isolate; margin-top: 0; background: radial-gradient(ellipse 115% 560px at 50% 0%, rgba(34, 58, 100, .58) 0%, rgba(20, 37, 68, .34) 48%, rgba(11, 21, 48, 0) 100%), #0b1530; }
 .section { width: min(100% - 40px, 1120px); margin-inline: auto; padding-block: clamp(62px, 8vw, 112px); }
 .section-heading { max-width: 650px; }
 .section-heading.centered { text-align: center; margin-inline: auto; }

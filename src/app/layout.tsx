@@ -9,13 +9,13 @@ import "@fontsource/vazirmatn/900.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "گروه کسب‌وکار نگاه خلاق | کارخانه تولید کسب‌وکار",
+  title: "گروه کسب و کار نگاه خلاق",
   description:
     "نگاه خلاق، مادر صنعت نوآوری و همراه تیم‌ها برای توسعه کسب‌وکار از ایده تا بازار است.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cvbgroup.ir"),
   robots: process.env.APP_ENV === "staging" ? { index: false, follow: false } : undefined,
   openGraph: {
-    title: "گروه کسب‌وکار نگاه خلاق",
+    title: "گروه کسب و کار نگاه خلاق",
     description:
       "We bring together strategy, technology, product development, and growth support to help new ventures move from concept to market.",
     locale: "fa_IR",
