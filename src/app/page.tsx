@@ -6,6 +6,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getFooterData, getPublicOrbits, getPublicStartups } from "@/lib/public-data";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [startups, businesses, footer] = await Promise.all([getPublicStartups(), getPublicOrbits(), getFooterData()]);
   return (

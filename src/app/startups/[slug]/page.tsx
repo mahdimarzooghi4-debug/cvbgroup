@@ -4,11 +4,9 @@ import { notFound } from "next/navigation";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getPublicStartups, getStartupBySlug } from "@/lib/public-data";
+import { getStartupBySlug } from "@/lib/public-data";
 
-export function generateStaticParams() {
-  return getPublicStartups().then((items) => items.map(({ slug }) => ({ slug })));
-}
+export const dynamic = "force-dynamic";
 
 export default async function StartupPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
