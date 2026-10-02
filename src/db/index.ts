@@ -17,7 +17,9 @@ export function getDb(): Database | null {
       idle_timeout: 20,
       connect_timeout: 10,
       prepare: false,
-      ssl: connectionString.includes("localhost") ? false : "require",
+      ssl: process.env.DATABASE_SSL === "disable" || connectionString.includes("localhost")
+        ? false
+        : "require",
     });
     globalForDb.cvbDb = drizzle(globalForDb.cvbSql, { schema });
   }

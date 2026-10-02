@@ -3,6 +3,7 @@ import { asc, eq, sql } from "drizzle-orm";
 import { getDb } from "@/db";
 import { orbitBusinesses } from "@/db/schema";
 import { orbitSchema } from "@/lib/admin-validation";
+import { ORBIT_CAPACITY } from "@/lib/orbit-config";
 import { requireAdmin } from "@/lib/require-admin";
 
 type Context = { params: Promise<{ id: string }> };
@@ -22,7 +23,7 @@ export async function PATCH(request: Request, context: Context) {
       const current = all.find((row) => row.id === id);
       if (!current) return false;
       const group = all.filter((row) => row.orbit === parsed.data.orbit && row.id !== id);
-      if (group.length >= 8) throw new Error("ORBIT_FULL");
+      if (group.length >= ORBIT_CAPACITY) throw new Error("ORBIT_FULL");
       const insertAt = Math.min(parsed.data.sortOrder, group.length + 1) - 1;
       group.splice(insertAt, 0, current);
       const groups = new Map<number, typeof all>();
@@ -47,7 +48,7 @@ export async function PATCH(request: Request, context: Context) {
     });
     return exists ? NextResponse.json({ ok: true }) : NextResponse.json({ error: "کسب‌وکار پیدا نشد." }, { status: 404 });
   } catch (cause) {
-    if (cause instanceof Error && cause.message === "ORBIT_FULL") return NextResponse.json({ error: "هر مدار حداکثر ۸ کسب‌وکار می‌پذیرد." }, { status: 409 });
+    if (cause instanceof Error && cause.message === "ORBIT_FULL") return NextResponse.json({ error: "هر مدار حداکثر ۳ کسب‌وکار می‌پذیرد." }, { status: 409 });
     return NextResponse.json({ error: "ذخیره تغییرات مدار انجام نشد." }, { status: 500 });
   }
 }

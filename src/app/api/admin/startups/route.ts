@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       const existing = await tx.select().from(startups).orderBy(asc(startups.sortOrder));
       if (existing.some((item) => item.slug === parsed.data.slug)) throw new Error("SLUG_TAKEN");
       await tx.update(startups).set({ sortOrder: sql`${startups.sortOrder} + 1000000`, updatedAt: new Date() });
-      const [row] = await tx.insert(startups).values({ ...parsed.data, sortOrder: 1, pageUrl: `/startups/${parsed.data.slug}` }).returning();
+      const [row] = await tx.insert(startups).values({ ...parsed.data, sortOrder: 1, pageUrl: "" }).returning();
       for (let i = 0; i < existing.length; i++) {
         await tx.update(startups).set({ sortOrder: i + 2 }).where(sql`${startups.id} = ${existing[i].id}`);
       }

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { jwtVerify, SignJWT } from "jose";
+import { SignJWT } from "jose";
 
 const cookieName = "cvb_admin_session";
 const sessionAgeSeconds = 60 * 60 * 8;
@@ -18,7 +18,7 @@ export async function createAdminSession() {
     .setIssuedAt()
     .setIssuer("cvbgroup")
     .setAudience("cvbgroup-admin")
-    .setExpirationTime(`${sessionAgeSeconds}s`)
+    .setExpirationTime(String(sessionAgeSeconds) + "s")
     .sign(secret);
   const store = await cookies();
   store.set(cookieName, token, {
@@ -36,14 +36,8 @@ export async function clearAdminSession() {
 }
 
 export async function hasAdminSession() {
-  const secret = getSecret();
-  if (!secret) return false;
-  const token = (await cookies()).get(cookieName)?.value;
-  if (!token) return false;
-  try {
-    const { payload } = await jwtVerify(token, secret, { issuer: "cvbgroup", audience: "cvbgroup-admin" });
-    return payload.role === "admin";
-  } catch {
-    return false;
-  }
+  // Public mode: the owner explicitly requested access without sign-in.
+  // Keep cookies() so admin routes remain dynamically rendered.
+  await cookies();
+  return true;
 }
