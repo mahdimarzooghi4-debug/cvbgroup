@@ -95,7 +95,7 @@ export const orbitBusinesses: OrbitBusiness[] = [
 
 export const siteFooterDefaults = {
   brandDescription:
-    "We bring together strategy, technology, product development, and growth support to help new ventures move from concept to market.",
+    "ما با ارائه راهکارهای نوآورانه، کسب‌وکار شما را به سطح بعدی می‌بریم",
   phone: "۰۲۱-۶۶۴۸۵۳۷۴",
   email: "info@cvbgroup.ir",
   address: "تهران، خیابان انقلاب-خیابان رازی-کوچه شهبازیان-پلاک۲۲",

@@ -45,9 +45,9 @@ export default async function HomePage() {
             <h2>تماس با ما</h2>
             <p>برای مشاوره رایگان و شروع همکاری با ما در تماس باشید.</p>
             <div className="contact-details">
-              <a href={`tel:${footer.phone.replaceAll("-", "")}`}><span className="contact-icon">☎</span><span><small>تلفن تماس</small>{footer.phone}</span></a>
-              <a href={`mailto:${footer.email}`}><span className="contact-icon">✉</span><span><small>پست الکترونیکی</small>{footer.email}</span></a>
-              <div><span className="contact-icon">⌖</span><span><small>نشانی</small>{footer.address}</span></div>
+              <a href={`tel:${footer.phone.replaceAll("-", "")}`}><Image className="contact-icon" src="/assets/figma/contact/phone.svg" alt="" width={53} height={52} /><span><small>تلفن تماس</small>{footer.phone}</span></a>
+              <a href={`mailto:${footer.email}`}><Image className="contact-icon" src="/assets/figma/contact/email.svg" alt="" width={53} height={52} /><span><small>ایمیل</small>{footer.email}</span></a>
+              <div><Image className="contact-icon" src="/assets/figma/contact/location.svg" alt="" width={53} height={52} /><span><small>آدرس</small>{footer.address}</span></div>
             </div>
           </div>
           <div className="contact-form-panel">

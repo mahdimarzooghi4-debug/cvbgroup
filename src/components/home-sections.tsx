@@ -78,10 +78,11 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
             <Image className="orbit-ring ring-middle" src="/assets/figma/about/orbit-middle.svg" alt="" width={348} height={348} />
             <Image className="orbit-ring ring-inner" src="/assets/figma/about/orbit-inner.svg" alt="" width={203} height={203} />
             <Image className="orbit-center" src="/assets/figma/brand.png" alt="گروه کسب و کار نگاه خلاق" width={88} height={70} />
+            <div className="orbit-revolution">
             {orbitMembers.flatMap((members, index) => members.map((business, position) => {
               const external = business.href.startsWith("http");
               const style = {
-                "--orbit-angle": `${index * 30 + position * (360 / ORBIT_CAPACITY)}deg`,
+                "--orbit-angle": `${(index % 2) * 60 + position * (360 / ORBIT_CAPACITY)}deg`,
                 "--orbit-radius": `${orbitRadii[index]}px`,
               } as CSSProperties;
               const [width, height] = logoSizes[business.logo] ?? [38, 38];
@@ -96,6 +97,7 @@ export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
                 </div>
               );
             }))}
+            </div>
           </div>
         </div>
         <div className="about-copy">

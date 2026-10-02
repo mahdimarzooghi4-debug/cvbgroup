@@ -59,9 +59,9 @@ button { color: inherit; }
 .hero-stats strong { color: white; font-size: 29px; line-height: 38px; font-weight: 800; }
 .hero-stats span { color: white; font-size: 14px; line-height: 22px; }
 
-.main-content { position: relative; isolation: isolate; margin-top: 0; }
-.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: calc(50% - 1px); width: min(calc(100vw * 2872 / 1440), 2872px); aspect-ratio: 1; transform: translateX(-50%); background: url("/assets/figma/about/main-circle-native.png") top center / contain no-repeat; pointer-events: none; }
-.main-glow { position: absolute; z-index: -1; pointer-events: none; background: center / contain no-repeat; }
+.main-content { position: relative; isolation: isolate; margin-top: 0; background: #0b1530; }
+.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: calc(50% - 1px); width: min(calc(100vw * 2872 / 1440), 2872px); aspect-ratio: 1; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 20%, #223a64, #0b1530 60%); box-shadow: inset 0 0 0 1px rgba(111,145,197,.12); pointer-events: none; }
+.main-glow { position: absolute; z-index: -1; pointer-events: none; background: center / contain no-repeat; opacity: .2; }
 .main-glow-1 { left: calc(50% - min(50vw, 720px)); top: calc(min(100vw, 1440px) * -149 / 1440); width: min(55.4861vw, 799px); aspect-ratio: 799 / 1222; background-image: url("/assets/figma/about/main-glow-1.svg"); }
 .main-glow-2 { left: calc(50% - min(50vw, 720px)); top: calc(min(100vw, 1440px) * 1097 / 1440); width: min(49.5139vw, 713px); aspect-ratio: 713 / 1222; background-image: url("/assets/figma/about/main-glow-2.svg"); }
 .main-glow-3 { left: calc(50% + min(100vw, 1440px) * 47 / 1440); top: calc(min(100vw, 1440px) * 1048 / 1440); width: min(46.7361vw, 673px); aspect-ratio: 673 / 1222; background-image: url("/assets/figma/about/main-glow-3.svg"); }
@@ -95,12 +95,13 @@ button { color: inherit; }
 .ring-middle { left: 89px; top: 133.32px; }
 .ring-inner { left: 161.42px; top: 205.7px; }
 .orbit-center { position: absolute; left: 218.85px; top: 268.85px; object-fit: contain; }
-.orbit-node { position: absolute; left: 30px; top: 71px; width: 465.7px; height: 465.7px; pointer-events: none; animation: orbit-spin var(--orbit-duration) linear infinite; transform: rotate(var(--orbit-angle)); }
+.orbit-revolution { position: absolute; left: 30px; top: 71px; width: 465.7px; height: 465.7px; pointer-events: none; animation: orbit-spin var(--orbit-duration) linear infinite; }
+.orbit-node { position: absolute; inset: 0; pointer-events: none; transform: rotate(var(--orbit-angle)); }
 .orbit-logo { position: absolute; top: calc(50% - var(--orbit-radius)); left: 50%; display: grid; place-items: center; width: 55.06px; height: 55.06px; pointer-events: auto; border-radius: 50%; background: white; box-shadow: 0 2.78px 2.78px rgba(0,0,0,.25); transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); animation: orbit-counter-spin var(--orbit-duration) linear infinite; transition: box-shadow .22s ease; }
 .orbit-logo img { object-fit: contain; max-width: 100%; max-height: 100%; }
 .orbit-logo:hover, .orbit-logo:focus-visible { box-shadow: 0 0 0 4px rgba(154,148,255,.4); outline: 2px solid white; outline-offset: 3px; }
-.orbit-visual:has(.orbit-logo:hover) .orbit-node, .orbit-visual:has(.orbit-logo:hover) .orbit-logo, .orbit-visual:focus-within .orbit-node, .orbit-visual:focus-within .orbit-logo { animation-play-state: paused; }
-@keyframes orbit-spin { from { transform: rotate(var(--orbit-angle)); } to { transform: rotate(calc(var(--orbit-angle) + 360deg)); } }
+.orbit-visual:has(.orbit-logo:focus-visible) .orbit-revolution, .orbit-visual:has(.orbit-logo:focus-visible) .orbit-logo { animation-play-state: paused; }
+@keyframes orbit-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes orbit-counter-spin { from { transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); } to { transform: translate(-50%, -50%) rotate(calc(-360deg - var(--orbit-angle))); } }
 .about-copy { direction: rtl; min-width: 0; align-self: start; margin-top: 143px; margin-right: 18px; display: flex; flex-direction: column; gap: 15px; }
 .about-heading { display: flex; flex-direction: column; gap: 16px; }
@@ -149,7 +150,7 @@ button { color: inherit; }
 .contact-details { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
 .contact-details > a, .contact-details > div { display: flex; align-items: center; gap: 12px; color: #d5deed; font-size: 12px; }
 .contact-details small { display: block; color: #8999b4; font-size: 10px; margin-bottom: 1px; }
-.contact-icon { display: grid; place-items: center; flex: 0 0 38px; height: 38px; border-radius: 11px; color: #c1bdff; background: rgba(145, 141, 255, .13); font-size: 17px; }
+.contact-icon { display: block; flex: 0 0 53px; width: 53px; height: 52px; }
 .contact-form-panel { padding: 25px; border: 1px solid rgba(119, 142, 186, .24); border-radius: 16px; background: linear-gradient(140deg, rgba(26, 42, 77, .88), rgba(20, 34, 66, .9)); box-shadow: 0 14px 40px rgba(0, 0, 0, .15); }
 .contact-form-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; }
 .contact-form-heading h3 { margin: 0; font-size: 17px; }
