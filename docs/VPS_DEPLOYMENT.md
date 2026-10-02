@@ -7,7 +7,7 @@
 فایل نمونه را به `ops/vps.env` کپی کنید و مقادیر محرمانه را روی سرور تنظیم کنید. این فایل در Git نادیده گرفته می‌شود.
 
 - `POSTGRES_PASSWORD` و `SESSION_SECRET` را با رشته‌های تصادفی hex بسازید؛ این کار از مشکل کاراکترهای ویژه در نشانی اتصال جلوگیری می‌کند.
-- برای مدیر، هش bcrypt واقعی را با `npm run admin:hash` بسازید و در `ADMIN_PASSWORD_HASH` قرار دهید. از رمز خام در فایل محیطی استفاده نکنید.
+- برای مدیر، پس از کپی فایل نمونه، هش bcrypt را در ترمینال تعاملی با `docker compose --env-file ops/vps.env -f compose.production.yaml run --rm -it migrate npm run admin:hash` بسازید و خروجی را در `ADMIN_PASSWORD_HASH` قرار دهید. رمز خام را در فایل محیطی ننویسید.
 - `NEXT_PUBLIC_SITE_URL` را روی نشانی نهایی سایت تنظیم کنید.
 
 ## اولین راه‌اندازی
