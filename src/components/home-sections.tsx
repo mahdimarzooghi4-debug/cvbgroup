@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useRef } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpLeft, Blocks, Compass, FlaskConical, Lightbulb, Rocket, Search, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { ArrowLeft, ArrowRight, Blocks, FlaskConical, Lightbulb, Search } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
 
 const solutions = [
-  { title: "تدوین سند استراتژیک", description: "تعیین اهداف کلان و ترسیم مسیر رشد", icon: Compass },
-  { title: "تحلیل داده‌ها", description: "استفاده از داده‌های کلان برای تصمیم‌گیری", icon: Blocks },
-  { title: "سرمایه‌گذاری هدفمند", description: "سرمایه‌گذاری هوشمند در محدوده استراتژیک", icon: Rocket },
-  { title: "مدیریت ریسک", description: "شناسایی و مدیریت ریسک‌های کسب‌وکار", icon: ShieldCheck },
-  { title: "تیم‌سازی", description: "ساخت تیم حرفه‌ای برای کسب‌وکار شما", icon: UsersRound },
-  { title: "مشاوره کسب‌وکار", description: "راهنمایی حرفه‌ای برای تبدیل ایده به کسب‌وکار", icon: Lightbulb },
-  { title: "راه‌اندازی استارتاپ", description: "از صفر تا صد راه‌اندازی کسب‌وکار دیجیتال", icon: ArrowUpLeft },
-  { title: "رشد و توسعه", description: "استراتژی‌های رشد و بهینه‌سازی کسب‌وکار", icon: Sparkles },
+  { title: "تیم‌سازی", description: "ساخت تیم حرفه‌ای برای کسب‌وکار شما", icon: "team", tint: "rgba(239,68,68,.35)" },
+  { title: "مشاوره کسب‌وکار", description: "راهنمایی حرفه‌ای برای تبدیل ایده به کسب‌وکار", icon: "consulting", tint: "rgba(104,174,255,.35)" },
+  { title: "راه‌اندازی استارتاپ", description: "از صفر تا صد راه‌اندازی کسب‌وکار دیجیتال", icon: "startup", tint: "rgba(236,72,153,.35)" },
+  { title: "رشد و توسعه", description: "استراتژی‌های رشد و بهینه‌سازی کسب‌وکار", icon: "growth", tint: "rgba(16,185,129,.35)" },
+  { title: "تدوین سند استراتژیک", description: "تعیین اهداف کلان و ترسیم مسیر رشد", icon: "strategy", tint: "rgba(59,130,246,.08)" },
+  { title: "تحلیل داده‌ها", description: "استفاده از داده‌های کلان برای تصمیم‌گیری", icon: "data-analysis", tint: "rgba(245,158,11,.35)" },
+  { title: "سرمایه گذاری هدفمند", description: "سرمایه‌گذاری هوشمند در محدوده استراتژیک", icon: "investment", tint: "rgba(249,115,22,.35)" },
+  { title: "مدیریت ریسک", description: "شناسایی و مدیریت ریسک‌های کسب‌وکار", icon: "risk", tint: "rgba(168,85,247,.35)" },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -27,16 +27,22 @@ export function SolutionsSection() {
     <section className="section solutions-section" id="services">
       <div className="section-heading centered">
         <SectionLabel>خدمات ما</SectionLabel>
-        <h2>راهکارهای جامع برای موفقیت</h2>
-        <p>تیم ما با بهره‌گیری از جدیدترین متدها، کسب‌وکار شما را به سطح بعدی می‌برد.</p>
+        <div className="services-introduction">
+          <h2>راهکارهای جامع برای موفقیت</h2>
+          <p>تیم ما با بهره‌گیری از جدیدترین متدها، کسب‌وکار شما را به سطح بعدی می‌برد</p>
+        </div>
       </div>
       <div className="solutions-grid">
-        {solutions.map(({ title, description, icon: Icon }, index) => (
-          <article className="solution-card" key={title}>
-            <span className={`solution-icon tone-${index % 4}`}><Icon size={21} strokeWidth={1.8} /></span>
+        {solutions.map(({ title, description, icon, tint }) => (
+          <article className={`solution-card${icon === "startup" ? " solution-card-startup" : ""}`} key={title}>
+            <span className="solution-icon" aria-hidden="true">
+              <span className="solution-icon-back" />
+              <span className="solution-icon-tile" style={{ backgroundColor: tint }}>
+                <Image src={`/assets/figma/services/${icon}.svg`} alt="" width={24} height={24} />
+              </span>
+            </span>
             <h3>{title}</h3>
-            <p>{description}</p>
-            <span className="card-arrow" aria-hidden="true"><ArrowLeft size={16} /></span>
+            <p title={description}>{description}</p>
           </article>
         ))}
       </div>
