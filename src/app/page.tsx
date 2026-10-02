@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { OrbitSection, ProcessSection, SolutionsSection, StartupsSection } from "@/components/home-sections";
 import { SiteFooter } from "@/components/site-footer";
@@ -14,17 +13,19 @@ export default async function HomePage() {
     <main className="site-shell">
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-stars" aria-hidden="true" />
-        <Image className="hero-earth" src="/assets/figma/earth-transparent.png" alt="" width={1100} height={355} priority />
-        <SiteHeader />
+        <Image className="hero-earth" src="/assets/figma/hero-earth.png" alt="" width={1440} height={462} priority />
+        <SiteHeader variant="hero" />
         <div className="hero-content">
-          <span className="hero-eyebrow">نگاه خلاق؛ مادر صنعت نوآوری</span>
-          <h1 id="hero-title">کارخانه تولید <span>کسب‌وکار</span></h1>
-          <p>با استفاده از جدیدترین تکنولوژی‌ها و تیم متخصص، ایده‌های شما را به کسب‌وکارهای پرسود و موفق تبدیل می‌کنیم.</p>
+          <div className="hero-introduction">
+            <span className="hero-eyebrow">گروه کسب و کار نگاه خلاق</span>
+            <h1 id="hero-title">کارخانه تولید کسب‌وکار</h1>
+            <p>با استفاده از جدیدترین تکنولوژی‌ها و تیم متخصص، ایده‌های شما را به کسب‌وکارهای پرسود و موفق تبدیل می‌کنیم</p>
+          </div>
           <div className="hero-actions">
-            <a className="primary-button" href="#contact">شروع همکاری <ArrowLeft size={17} /></a>
+            <a className="primary-button" href="#contact">شروع همکاری</a>
           </div>
           <div className="hero-stats" dir="rtl">
-            <div><strong>+۵۰</strong><span>پروژه موفق</span></div>
+            <div><strong dir="ltr">+۵۰</strong><span>پروژه موفق</span></div>
             <div><strong>۹۵٪</strong><span>رضایت مشتری</span></div>
             <div><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
           </div>

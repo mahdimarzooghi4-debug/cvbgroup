@@ -22,10 +22,10 @@ button { color: inherit; }
 ::selection { color: #080f23; background: #a8a4ff; }
 
 .site-shell { overflow: hidden; background: var(--navy); }
-.hero { min-height: 838px; position: relative; isolation: isolate; padding: 24px clamp(20px, 5vw, 82px) 90px; overflow: hidden; background: radial-gradient(ellipse at 50% 0%, #24446d 0%, #12294f 30%, #0d1a39 67%, #0b1530 100%); }
-.hero::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 513px; background: url("/assets/figma/space-bg.jpg") center top / 100% 100% no-repeat; opacity: .11; mix-blend-mode: screen; pointer-events: none; }
-.hero-stars { position: absolute; z-index: -1; inset: 191px 0 auto; height: 513px; background: url("/assets/figma/space-bg.jpg") center / 100% 100% no-repeat; opacity: .11; mix-blend-mode: screen; transform: scaleY(-1); pointer-events: none; }
-.hero-earth { position: absolute; z-index: -1; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1150px); height: auto; object-fit: contain; opacity: .94; }
+.hero { min-height: 838px; position: relative; isolation: isolate; padding: 23px 20px 0; overflow: hidden; background: linear-gradient(90deg, #193e6e, #1b2545); font-family: "Peyda(FaNum)", "Vazirmatn", sans-serif; }
+.hero::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center top / 100% 100% no-repeat; pointer-events: none; }
+.hero-stars { position: absolute; z-index: -1; inset: 191px 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center / 100% 100% no-repeat; transform: scaleY(-1); pointer-events: none; }
+.hero-earth { position: absolute; z-index: -1; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1440px); height: auto; object-fit: contain; }
 .site-header { width: min(100%, 1320px); margin: 0 auto; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 28px; position: relative; z-index: 2; }
 .brand-lockup { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand-lockup img { object-fit: contain; width: 42px; height: 42px; }
@@ -38,20 +38,28 @@ button { color: inherit; }
 .header-cta, .primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 9px; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
 .header-cta { padding: 9px 16px; font-size: 12px; background: rgba(4, 12, 30, .64); border: 1px solid rgba(154, 176, 215, .2); }
 .header-cta:hover, .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); }
-.hero-content { text-align: center; position: relative; margin: 250px auto 0; width: min(100%, 760px); }
+.hero .site-header { width: min(100%, 1254px); min-height: 146px; flex-direction: column; justify-content: flex-start; gap: 12px; }
+.hero .brand-lockup img { width: 90px; height: 70px; }
+.hero .desktop-nav { width: min(100%, 606px); height: 64px; display: flex; justify-content: center; gap: 16px; padding: 12px 8px 12px 12px; border-radius: 16px; background: rgba(30, 42, 74, .6); color: white; font-size: 14px; font-weight: 300; }
+.hero .desktop-nav a { position: relative; padding: 4px 10px; white-space: nowrap; }
+.hero .desktop-nav a:first-child { font-weight: 700; }
+.hero .desktop-nav a + a::before { content: ""; position: absolute; right: -10px; top: calc(50% - 2px); width: 4px; height: 4px; border-radius: 50%; background: #d8d9df; }
+.hero-content { text-align: center; position: relative; margin: 115px auto 0; width: min(100%, 927px); }
+.hero-introduction { display: flex; flex-direction: column; align-items: center; gap: 11px; padding-block: 12px; }
 .hero-eyebrow, .section-label { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; color: #c3c7ff; background: rgba(126, 123, 255, .12); border: 1px solid rgba(154, 151, 255, .18); border-radius: 100px; font-size: 11px; line-height: 1.65; }
-.hero h1 { font-size: clamp(32px, 3.1vw, 44px); line-height: 1.28; letter-spacing: -.04em; margin: 14px 0 12px; font-weight: 800; text-shadow: 0 8px 50px rgba(71, 118, 202, .22); }
-.hero h1 span { color: #c1c5ff; }
-.hero-content > p { margin: 0 auto; max-width: 520px; color: #bdc9df; font-size: 14px; }
-.hero-actions { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+.hero .hero-eyebrow { height: 57px; padding: 17px 58px; border: 0; border-radius: 34px; background: rgba(15, 23, 42, .2); box-shadow: 0 0 76px rgba(255,255,255,.32); color: #d0d0d0; font-size: 18px; font-weight: 700; line-height: 23px; }
+.hero h1 { width: 100%; font-size: 86px; line-height: 111px; letter-spacing: normal; margin: 0; font-weight: 800; background: linear-gradient(90deg, #706d6d, #e2e2e2 49.038%, #706d6d); background-clip: text; color: transparent; filter: drop-shadow(4px 11px 7px rgba(0,0,0,.19)); }
+.hero-introduction > p { margin: 0; width: 100%; color: white; font-size: 17px; line-height: 21px; }
+.hero-actions { display: flex; justify-content: center; margin-top: 39px; }
+.hero-actions .primary-button { width: 241px; height: 62px; padding: 20px 27px; border: 0; border-radius: 8px; background: #0f172a; color: white; font-size: 18px; font-weight: 400; line-height: 22px; box-shadow: none; }
 .primary-button { color: #101730; background: #a39fff; padding: 11px 18px; font-size: 13px; font-weight: 700; border: 1px solid #a39fff; box-shadow: 0 8px 30px rgba(105, 104, 255, .15); }
 .secondary-button { padding: 11px 17px; border: 1px solid rgba(197, 210, 236, .25); color: #eef2fb; background: rgba(10, 22, 48, .55); font-size: 13px; }
-.hero-stats { display: flex; justify-content: center; gap: clamp(30px, 6vw, 78px); margin-top: 25px; }
-.hero-stats div { display: flex; flex-direction: column; gap: 3px; align-items: center; }
-.hero-stats strong { color: #fff; font-size: 18px; line-height: 1.2; }
-.hero-stats span { color: #b5c4dd; font-size: 10px; }
+.hero-stats { display: flex; justify-content: space-between; width: min(100%, 492px); margin: 29px auto 0; }
+.hero-stats div { display: flex; flex-direction: column; width: 135px; gap: 8px; align-items: center; }
+.hero-stats strong { color: white; font-size: 29px; line-height: 38px; font-weight: 800; }
+.hero-stats span { color: white; font-size: 14px; line-height: 22px; }
 
-.main-content { position: relative; isolation: isolate; margin-top: -74px; border-radius: 50% 50% 0 0 / 42px 42px 0 0; background: radial-gradient(ellipse at 50% 23%, rgba(34, 54, 95, .8) 0%, #111e3e 38%, #0d1835 100%); }
+.main-content { position: relative; isolation: isolate; margin-top: 0; border-radius: 50% 50% 0 0 / 42px 42px 0 0; background: radial-gradient(ellipse at 50% 23%, rgba(34, 54, 95, .8) 0%, #111e3e 38%, #0d1835 100%); }
 .main-content::before { content: ""; z-index: -1; position: absolute; inset: 0; opacity: .07; background: url("/assets/figma/space-bg.jpg") center top / 100% auto repeat-y; mix-blend-mode: screen; pointer-events: none; }
 .section { width: min(100% - 40px, 1120px); margin-inline: auto; padding-block: clamp(62px, 8vw, 112px); }
 .section-heading { max-width: 650px; }
@@ -187,7 +195,9 @@ button { color: inherit; }
 
 @media (max-width: 900px) {
   .hero { min-height: 760px; }
-  .hero-content { margin-top: 235px; }
+  .hero-content { margin-top: 115px; }
+  .hero h1 { font-size: clamp(42px, 6.8vw, 68px); line-height: 1.3; }
+  .hero-introduction > p { font-size: 15px; line-height: 1.7; max-width: 700px; }
   .desktop-nav { gap: 18px; font-size: 12px; }
   .solutions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .orbit-layout { grid-template-columns: 1fr; gap: 35px; }
@@ -199,25 +209,33 @@ button { color: inherit; }
 }
 @media (max-width: 640px) {
   html { scroll-padding-top: 70px; }
-  .hero { min-height: 640px; padding: 16px 18px 70px; }
+  .hero { min-height: 720px; padding: 20px 16px 60px; }
   .site-header { min-height: 52px; gap: 10px; }
   .brand-copy strong { font-size: 11px; }
   .brand-copy small { font-size: 9px; }
   .brand-lockup img { width: 36px; height: 36px; }
   .desktop-nav { display: none; }
   .header-cta { padding: 8px 10px; font-size: 10px; }
-  .hero-earth { top: 18px; width: 118%; max-width: none; }
-  .hero::before { height: 460px; background-size: auto 460px; background-position: center top; }
-  .hero-stars { top: 170px; height: 460px; background-size: auto 460px; }
-  .hero-content { margin-top: 225px; }
-  .hero h1 { font-size: clamp(32px, 9vw, 42px); }
-  .hero-content > p { font-size: 12px; max-width: 330px; }
-  .hero-actions { gap: 8px; margin-top: 20px; }
+  .hero .site-header { min-height: 124px; gap: 14px; }
+  .hero .brand-lockup img { width: 77px; height: 60px; }
+  .hero .desktop-nav { height: 50px; gap: 6px; padding: 8px 4px; border-radius: 12px; font-size: 10px; }
+  .hero .desktop-nav a { padding-inline: 5px; }
+  .hero .desktop-nav a + a::before { right: -5px; width: 2px; height: 2px; top: calc(50% - 1px); }
+  .hero-earth { top: 0; width: 900px; max-width: none; }
+  .hero::before { background-size: auto 513px; }
+  .hero-stars { background-size: auto 513px; }
+  .hero-content { margin-top: 115px; }
+  .hero .hero-eyebrow { height: 44px; padding: 10px 24px; font-size: 14px; }
+  .hero h1 { font-size: clamp(32px, 8.5vw, 48px); line-height: 1.4; }
+  .hero-introduction > p { font-size: 13px; max-width: 420px; line-height: 1.8; }
+  .hero-actions { margin-top: 26px; }
+  .hero-actions .primary-button { width: 210px; height: 54px; padding: 16px 24px; font-size: 16px; }
   .primary-button, .secondary-button { padding: 10px 12px; font-size: 11px; }
-  .hero-stats { gap: 28px; margin-top: 20px; }
-  .hero-stats strong { font-size: 16px; }
-  .hero-stats span { font-size: 9px; }
-  .main-content { margin-top: -45px; border-radius: 35px 35px 0 0; }
+  .hero-stats { margin-top: 28px; }
+  .hero-stats div { width: 100px; }
+  .hero-stats strong { font-size: 24px; line-height: 30px; }
+  .hero-stats span { font-size: 11px; }
+  .main-content { margin-top: 0; border-radius: 35px 35px 0 0; }
   .section { width: min(100% - 32px, 1120px); padding-block: 60px; }
   .solutions-section { padding-top: 78px; }
   .section-heading h2, .about-copy h2, .contact-intro h2 { font-size: 27px; }
