@@ -173,7 +173,11 @@ export function ProcessSection() {
 export function StartupsSection({ startups }: { startups: Startup[] }) {
   const scroller = useRef<HTMLDivElement>(null);
   function scroll(direction: number) {
-    scroller.current?.scrollBy({ left: direction * 280, behavior: "smooth" });
+    const list = scroller.current;
+    const card = list?.firstElementChild;
+    if (!list || !card) return;
+    const gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+    list.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
   }
   return (
     <section className="section startups-section" id="startups">
@@ -182,10 +186,6 @@ export function StartupsSection({ startups }: { startups: Startup[] }) {
           <SectionLabel>کسب‌وکارهای ما</SectionLabel>
           <h2>استارتاپ‌های جدید</h2>
           <p>با کسب‌وکارهایی که در گروه کسب و کار نگاه خلاق ساخته‌ایم آشنا شوید.</p>
-        </div>
-        <div className="scroll-buttons" aria-label="پیمایش استارتاپ‌ها">
-          <button type="button" onClick={() => scroll(1)} aria-label="حرکت به کارت‌های بعدی"><ArrowRight size={18} /></button>
-          <button type="button" onClick={() => scroll(-1)} aria-label="حرکت به کارت‌های قبلی"><ArrowLeft size={18} /></button>
         </div>
       </div>
       <div className="startup-scroller" ref={scroller} dir="rtl" tabIndex={0} aria-label="فهرست قابل پیمایش استارتاپ‌ها">
@@ -200,6 +200,10 @@ export function StartupsSection({ startups }: { startups: Startup[] }) {
             ? <a className="startup-card" href={website} key={startup.slug} target="_blank" rel="noopener noreferrer">{content}</a>
             : <article className="startup-card" key={startup.slug}>{content}</article>;
         })}
+      </div>
+      <div className="scroll-buttons" aria-label="پیمایش استارتاپ‌ها">
+        <button type="button" onClick={() => scroll(1)} aria-label="حرکت به کارت‌های قبلی"><ArrowRight size={18} /></button>
+        <button type="button" onClick={() => scroll(-1)} aria-label="حرکت به کارت‌های بعدی"><ArrowLeft size={18} /></button>
       </div>
     </section>
   );

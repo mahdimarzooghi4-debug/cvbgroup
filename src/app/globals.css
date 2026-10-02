@@ -127,12 +127,13 @@ button { color: inherit; }
 .process-step-label { position: absolute; transform: translateX(-100%); direction: rtl; color: white; font-size: 18px; font-weight: 800; line-height: 25px; white-space: nowrap; }
 
 .startups-section { width: 100%; max-width: none; padding-inline: max(20px, calc((100% - 1120px) / 2)); background: rgba(8, 16, 36, .54); }
-.startup-heading-row { width: min(100%, 1120px); margin-inline: auto; display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-.scroll-buttons { display: flex; gap: 9px; padding-bottom: 6px; }
+.startup-heading-row { width: min(100%, 1120px); margin-inline: auto; display: flex; justify-content: center; text-align: center; }
+.startup-heading-row .section-heading { display: flex; flex-direction: column; align-items: center; }
+.scroll-buttons { display: flex; justify-content: center; gap: 9px; margin-top: 18px; }
 .scroll-buttons button { display: grid; place-items: center; width: 38px; height: 38px; cursor: pointer; border-radius: 10px; border: 1px solid rgba(159, 176, 209, .25); background: #152344; color: #d4def1; }
 .scroll-buttons button:hover { border-color: var(--purple); color: white; }
 .startup-scroller { display: flex; gap: 16px; width: min(100%, 1120px); margin: 30px auto 0; overflow-x: auto; overflow-y: hidden; padding: 0 0 15px; scroll-snap-type: x mandatory; scrollbar-color: rgba(146, 145, 255, .46) rgba(255, 255, 255, .06); scrollbar-width: thin; }
-.startup-card { position: relative; flex: 0 0 236px; min-height: 268px; display: flex; flex-direction: column; align-items: flex-start; padding: 17px 15px; border: 1px solid rgba(108, 130, 175, .34); border-radius: 14px; background: #151f3c; scroll-snap-align: start; transition: transform .2s ease, border-color .2s ease; }
+.startup-card { position: relative; flex: 0 0 calc((100% - 48px) / 4); min-width: 0; min-height: 268px; display: flex; flex-direction: column; align-items: flex-start; padding: 17px 15px; border: 1px solid rgba(108, 130, 175, .34); border-radius: 14px; background: #151f3c; scroll-snap-align: start; transition: transform .2s ease, border-color .2s ease; }
 .startup-card[href]:hover { transform: translateY(-4px); border-color: rgba(145, 141, 255, .75); }
 .startup-logo { width: 100%; min-height: 68px; display: flex; justify-content: flex-start; align-items: center; gap: 12px; padding: 8px 11px; border: 1px solid #e1e7f0; border-radius: 10px; background: white; direction: rtl; }
 .startup-logo img { flex: 0 0 52px; width: 52px; height: 52px; object-fit: contain; }
@@ -162,7 +163,7 @@ button { color: inherit; }
 .form-success { color: #80dfb3; }
 .form-error { color: #ffabb4; }
 
-.site-footer { padding: 48px max(20px, calc((100% - 1120px) / 2)) 20px; background: #080f22; border-top: 1px solid rgba(122, 145, 188, .2); }
+.site-footer { position: relative; z-index: 1; isolation: isolate; padding: 48px max(20px, calc((100% - 1120px) / 2)) 20px; background: #080f22; border-top: 1px solid rgba(122, 145, 188, .2); }
 .footer-grid { width: min(100%, 1120px); margin-inline: auto; display: grid; grid-template-columns: 1.4fr .8fr .8fr 1.2fr; gap: 34px; }
 .footer-brand-title { display: flex; flex-direction: column; line-height: 1.45; }
 .footer-brand-mark { display: block; object-fit: contain; object-position: right center; margin-bottom: 8px; }
@@ -180,6 +181,7 @@ button { color: inherit; }
 
 
 @media (max-width: 900px) {
+  .startup-card { flex-basis: calc((100% - 16px) / 2); }
   .hero { min-height: 760px; }
   .hero-content { margin-top: 115px; }
   .hero h1 { font-size: clamp(42px, 6.8vw, 68px); line-height: 1.3; }
@@ -246,9 +248,8 @@ button { color: inherit; }
   .process-heading p { font-size: 16px; line-height: 25px; }
   .process-diagram { margin-top: 30px; }
   .startups-section { width: 100%; padding-inline: 16px; }
-  .startup-heading-row { align-items: end; gap: 10px; }
   .startup-heading-row .section-heading h2 { font-size: 23px; }
-  .startup-heading-row .section-heading p { max-width: 240px; }
+  .startup-heading-row .section-heading p { max-width: 320px; }
   .scroll-buttons { gap: 5px; }
   .scroll-buttons button { width: 33px; height: 33px; }
   .startup-scroller { margin-top: 22px; gap: 10px; }
