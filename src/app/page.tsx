@@ -33,6 +33,7 @@ export default async function HomePage() {
       </section>
 
       <div className="main-content">
+        {[1, 2, 3, 4].map((glow) => <div className={`main-glow main-glow-${glow}`} aria-hidden="true" key={glow} />)}
         <SolutionsSection />
         <OrbitSection businesses={businesses} />
         <ProcessSection />

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Blocks, FlaskConical, Lightbulb, Search } from "lucide-react";
 import type { OrbitBusiness, Startup } from "@/lib/site-content";
 
@@ -51,47 +51,59 @@ export function SolutionsSection() {
 }
 
 export function OrbitSection({ businesses }: { businesses: OrbitBusiness[] }) {
+  const visual = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const element = visual.current;
+    if (!element) return;
+    const observer = new ResizeObserver(([entry]) => setScale(entry.contentRect.width / 520));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  const orbitMembers = [1, 2, 3].map((orbit) => businesses.filter((business) => business.orbit === orbit));
+  const logoSizes: Record<string, [number, number]> = {
+    "/assets/brands/moon.png": [38, 38], "/assets/brands/henna.png": [38, 38],
+    "/assets/brands/negarin.png": [32, 38], "/assets/brands/dena.png": [38, 38],
+    "/assets/brands/parcham.png": [55.06, 55.06], "/assets/brands/mono.png": [35.238, 37],
+    "/assets/brands/cube.png": [31.4, 38], "/assets/brands/funnel.png": [36, 38],
+  };
   return (
     <section className="section about-section" id="about">
       <div className="orbit-layout">
-        <div className="orbit-visual" aria-label="کسب‌وکارهای گروه نگاه خلاق در مدارهای نوآوری">
-          <div className="orbit-ring ring-outer" />
-          <div className="orbit-ring ring-middle" />
-          <div className="orbit-ring ring-inner" />
-          <div className="orbit-center"><Image src="/assets/figma/brand.png" alt="نگاه خلاق" width={50} height={50} /></div>
-          {businesses.map((business) => {
-            const external = business.href.startsWith("http");
-            const membersOnOrbit = businesses.filter((item) => item.orbit === business.orbit);
-            const position = membersOnOrbit.findIndex((item) => item.slug === business.slug);
-            const className = `orbit-node orbit-track-${business.orbit}`;
-            const style = { "--orbit-angle": `${position * (360 / Math.max(1, membersOnOrbit.length))}deg` } as CSSProperties;
-            const content = (
-              <span className="orbit-logo">
-                <Image src={business.logo} alt={business.name} width={40} height={40} unoptimized />
-              </span>
-            );
-            return (
-              <div className={className} style={style} key={business.slug}>
-                {external ? (
-                  <a href={business.href} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noreferrer">{content}</a>
-                ) : (
-                  <Link href={business.href} aria-label={`مشاهده ${business.name}`}>{content}</Link>
-                )}
-              </div>
-            );
-          })}
+        <div className="orbit-visual" ref={visual} style={{ "--orbit-scale": scale } as CSSProperties} aria-label="کسب‌وکارهای گروه نگاه خلاق در مدارهای نوآوری">
+          <div className="orbit-stage">
+            <Image className="orbit-ring ring-outer" src="/assets/figma/about/orbit-outer.svg" alt="" width={472} height={472} />
+            <Image className="orbit-ring ring-middle" src="/assets/figma/about/orbit-middle.svg" alt="" width={348} height={348} />
+            <Image className="orbit-ring ring-inner" src="/assets/figma/about/orbit-inner.svg" alt="" width={203} height={203} />
+            <Image className="orbit-center" src="/assets/figma/about/orbit-center.svg" alt="نگاه خلاق" width={72} height={64} />
+            {orbitMembers.flatMap((members, index) => members.map((business, position) => {
+              const external = business.href.startsWith("http");
+              const style = { "--orbit-angle": `${position * (360 / members.length)}deg` } as CSSProperties;
+              const [width, height] = logoSizes[business.logo] ?? [38, 38];
+              const content = <Image src={business.logo} alt={business.name} width={Math.ceil(width)} height={Math.ceil(height)} style={{ width, height }} unoptimized />;
+              return (
+                <div className={`orbit-node orbit-track-${index + 1}`} style={style} key={business.slug}>
+                  {external ? (
+                    <a className="orbit-logo" href={business.href} aria-label={`رفتن به ${business.name}`} target="_blank" rel="noreferrer">{content}</a>
+                  ) : (
+                    <Link className="orbit-logo" href={business.href} aria-label={`مشاهده ${business.name}`}>{content}</Link>
+                  )}
+                </div>
+              );
+            }))}
+          </div>
         </div>
         <div className="about-copy">
-          <SectionLabel>درباره ما</SectionLabel>
-          <h2>مادر صنعت نوآوری</h2>
-          <p className="about-lead">کارخانه تولید کسب‌وکارهای جسور</p>
+          <div className="about-heading">
+            <h2>درباره ما</h2>
+            <p className="about-lead">کارخانه تولید کسب و کارهای جسور</p>
+          </div>
           <p className="about-description">ما یک تیم متخصص و حرفه‌ای هستیم که با بهره‌گیری از جدیدترین تکنولوژی‌ها و متدهای روز دنیا، ایده‌های شما را به کسب‌وکارهای موفق و پرسود تبدیل می‌کنیم. با بیش از یک دهه تجربه در حوزه راه‌اندازی و توسعه کسب‌وکار، ما همراه شما در مسیر موفقیت هستیم. تیم ما متشکل از متخصصان برتر در زمینه‌های مختلف از جمله توسعه نرم‌افزار، بازاریابی دیجیتال، مدیریت پروژه و مشاوره کسب‌وکار است.</p>
           <div className="about-stats" dir="rtl">
-            <div><strong>+۵۰</strong><span>پروژه موفق</span></div>
-            <div><strong>۹۵٪</strong><span>رضایت مشتری</span></div>
-            <div><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
+            <div className="about-stat about-stat-projects"><Image src="/assets/figma/about/metric-projects.svg" alt="" width={43} height={43} /><div><strong dir="ltr">+۵۰</strong><span>پروژه موفق</span></div></div>
+            <div className="about-stat"><Image src="/assets/figma/about/metric-satisfaction.svg" alt="" width={43} height={43} /><div><strong>۹۵٪</strong><span>رضایت مشتری</span></div></div>
+            <div className="about-stat"><Image src="/assets/figma/about/metric-support.svg" alt="" width={43} height={43} /><div><strong>۲۴/۷</strong><span>پشتیبانی</span></div></div>
           </div>
-          <Link href="#startups" className="text-link">آشنایی با کسب‌وکارهای ما <ArrowLeft size={17} /></Link>
         </div>
       </div>
     </section>

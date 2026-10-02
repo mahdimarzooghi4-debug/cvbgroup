@@ -21,7 +21,7 @@ a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 ::selection { color: #080f23; background: #a8a4ff; }
 
-.site-shell { overflow: hidden; background: var(--navy); }
+.site-shell { overflow: hidden; background: linear-gradient(90deg, #193e6e, #1b2545); }
 .hero { min-height: 838px; position: relative; isolation: isolate; padding: 23px 20px 0; overflow: hidden; background: linear-gradient(90deg, #193e6e, #1b2545); font-family: "Vazirmatn", sans-serif; }
 .hero::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center top / 100% 100% no-repeat; pointer-events: none; }
 .hero-stars { position: absolute; z-index: -1; inset: 191px 0 auto; height: 513px; background: url("/assets/figma/hero-stars.png") center / 100% 100% no-repeat; transform: scaleY(-1); pointer-events: none; }
@@ -59,14 +59,19 @@ button { color: inherit; }
 .hero-stats strong { color: white; font-size: 29px; line-height: 38px; font-weight: 800; }
 .hero-stats span { color: white; font-size: 14px; line-height: 22px; }
 
-.main-content { position: relative; isolation: isolate; margin-top: 0; border-radius: 50% 50% 0 0 / 42px 42px 0 0; background: radial-gradient(ellipse at 50% 23%, rgba(34, 54, 95, .8) 0%, #111e3e 38%, #0d1835 100%); }
-.main-content::before { content: ""; z-index: -1; position: absolute; inset: 0; opacity: .07; background: url("/assets/figma/space-bg.jpg") center top / 100% auto repeat-y; mix-blend-mode: screen; pointer-events: none; }
+.main-content { position: relative; isolation: isolate; margin-top: 0; }
+.main-content::before { content: ""; z-index: -2; position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 1440 / 2872; background: url("/assets/figma/about/main-circle.svg") top center / contain no-repeat; pointer-events: none; }
+.main-glow { position: absolute; z-index: -1; pointer-events: none; background: center / contain no-repeat; }
+.main-glow-1 { left: 0; top: calc(100vw * -149 / 1440); width: 55.4861%; aspect-ratio: 799 / 1222; background-image: url("/assets/figma/about/main-glow-1.svg"); }
+.main-glow-2 { left: 0; top: calc(100vw * 1097 / 1440); width: 49.5139%; aspect-ratio: 713 / 1222; background-image: url("/assets/figma/about/main-glow-2.svg"); }
+.main-glow-3 { left: 53.2639%; top: calc(100vw * 1048 / 1440); width: 46.7361%; aspect-ratio: 673 / 1222; background-image: url("/assets/figma/about/main-glow-3.svg"); }
+.main-glow-4 { left: 0; top: calc(100vw * 361 / 1440); width: 65.2778%; aspect-ratio: 940 / 1222; background-image: url("/assets/figma/about/main-glow-4.svg"); }
 .section { width: min(100% - 40px, 1120px); margin-inline: auto; padding-block: clamp(62px, 8vw, 112px); }
 .section-heading { max-width: 650px; }
 .section-heading.centered { text-align: center; margin-inline: auto; }
 .section-heading h2, .about-copy h2, .contact-intro h2 { font-size: clamp(26px, 3vw, 38px); line-height: 1.28; margin: 13px 0 9px; font-weight: 700; }
 .section-heading p, .contact-intro > p { color: var(--muted); margin: 0; font-size: 13px; }
-.solutions-section { width: min(100% - 40px, 1249px); padding-top: 94px; }
+.solutions-section { width: min(100% - 40px, 1249px); padding-top: 94px; padding-bottom: 63px; }
 .solutions-section .section-heading { max-width: none; display: flex; flex-direction: column; align-items: center; gap: 25px; }
 .solutions-section .section-label { width: 139px; height: 40px; padding: 6px 32px; border: 0; border-right: 1px solid rgba(255,255,255,.3); border-bottom: 1px solid rgba(255,255,255,.3); border-radius: 34px; background: rgba(15,23,42,.2); color: white; font-size: 18px; font-weight: 600; }
 .services-introduction { display: flex; flex-direction: column; gap: 18px; width: 100%; }
@@ -81,35 +86,41 @@ button { color: inherit; }
 .solution-card h3 { align-self: stretch; margin: 0; color: white; font-size: 18px; font-weight: 700; line-height: 22px; }
 .solution-card p { align-self: stretch; margin: 0; overflow: hidden; color: white; font-size: 16px; line-height: 19px; white-space: nowrap; text-overflow: ellipsis; }
 
-.about-section { padding-top: 34px; padding-bottom: 78px; }
-.orbit-layout { display: grid; direction: ltr; grid-template-columns: minmax(380px, 1fr) minmax(280px, .9fr); align-items: center; gap: clamp(50px, 9vw, 130px); padding: clamp(28px, 5vw, 64px); border: 1px solid rgba(108, 132, 180, .11); border-radius: 22px; background: radial-gradient(ellipse at 15% 50%, rgba(53, 76, 126, .2), transparent 60%), rgba(7, 16, 37, .37); }
-.orbit-visual { position: relative; width: min(100%, 470px); aspect-ratio: 1; justify-self: center; display: grid; place-items: center; }
-.orbit-ring { position: absolute; inset: 7%; border: 1px solid rgba(167, 185, 222, .32); border-radius: 50%; }
-.ring-middle { inset: 19%; border-color: rgba(137, 159, 206, .27); }
-.ring-inner { inset: 31%; border-color: rgba(128, 145, 190, .25); }
-.orbit-center { display: grid; place-items: center; width: 70px; height: 70px; border: 1px solid rgba(160, 178, 215, .28); border-radius: 50%; background: #122348; box-shadow: 0 0 45px rgba(107, 147, 232, .2); }
-.orbit-center img { object-fit: contain; width: 42px; height: 42px; }
-.orbit-node { position: absolute; inset: 0; --orbit-duration: 54s; animation: orbit-spin var(--orbit-duration) linear infinite; }
-.orbit-track-1 { --orbit-radius: 43%; --orbit-duration: 54s; }
-.orbit-track-2 { --orbit-radius: 31%; --orbit-duration: 43s; animation-direction: reverse; }
-.orbit-track-3 { --orbit-radius: 19%; --orbit-duration: 33s; }
-.orbit-node > a { position: absolute; inset: 0; }
-.orbit-logo { position: absolute; top: calc(50% - var(--orbit-radius)); left: 50%; display: grid; place-items: center; width: 58px; height: 58px; transform: translate(-50%, -50%); border: 2px solid rgba(245, 248, 255, .92); border-radius: 50%; background: #f7f8fc; box-shadow: 0 5px 20px rgba(0, 0, 0, .28); animation: orbit-counter-spin var(--orbit-duration) linear infinite; transition: box-shadow .22s ease; }
-.orbit-track-2 .orbit-logo { animation-direction: reverse; }
-.orbit-logo img { width: 43px; height: 43px; object-fit: contain; border-radius: inherit; }
-.orbit-logo:hover { z-index: 2; box-shadow: 0 0 0 5px rgba(154, 148, 255, .18), 0 10px 26px rgba(0, 0, 0, .32); animation-play-state: paused; }
-.orbit-visual:hover .orbit-node, .orbit-visual:hover .orbit-logo { animation-play-state: paused; }
+.about-section { width: min(100% - 40px, 1300px); padding-top: 0; padding-bottom: 52px; }
+.orbit-layout { display: grid; direction: ltr; grid-template-columns: 520px minmax(0, 1fr); align-items: center; gap: 24px; min-height: 611px; background: linear-gradient(90deg, #1a2542, #111a31 48%, #0e172b 96.15%, #111a31 96.15%); }
+.orbit-visual { position: relative; width: 520px; aspect-ratio: 520 / 611; justify-self: center; }
+.orbit-stage { position: absolute; left: 0; top: 0; width: 520px; height: 611px; transform: scale(var(--orbit-scale, 1)); transform-origin: left top; background: linear-gradient(rgba(17,26,49,.24), rgba(17,26,49,.24)), url("/assets/figma/hero-stars.png") center / cover; }
+.orbit-ring { position: absolute; max-width: none; pointer-events: none; }
+.ring-outer { left: 27.22px; top: 71px; }
+.ring-middle { left: 89px; top: 133.32px; }
+.ring-inner { left: 161.42px; top: 205.7px; }
+.orbit-center { position: absolute; left: 230px; top: 278px; }
+.orbit-node { position: absolute; left: 30px; top: 71px; width: 465.7px; height: 465.7px; pointer-events: none; animation: orbit-spin var(--orbit-duration) linear infinite; transform: rotate(var(--orbit-angle)); }
+.orbit-track-1 { --orbit-radius: 98.5px; --orbit-duration: 36s; }
+.orbit-track-2 { --orbit-radius: 170.9px; --orbit-duration: 52s; }
+.orbit-track-3 { --orbit-radius: 232.85px; --orbit-duration: 72s; }
+.orbit-logo { position: absolute; top: calc(50% - var(--orbit-radius)); left: 50%; display: grid; place-items: center; width: 55.06px; height: 55.06px; pointer-events: auto; border-radius: 50%; background: white; box-shadow: 0 2.78px 2.78px rgba(0,0,0,.25); transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); animation: orbit-counter-spin var(--orbit-duration) linear infinite; transition: box-shadow .22s ease; }
+.orbit-logo img { object-fit: contain; max-width: 100%; max-height: 100%; }
+.orbit-logo:hover, .orbit-logo:focus-visible { box-shadow: 0 0 0 4px rgba(154,148,255,.4); outline: 2px solid white; outline-offset: 3px; }
+.orbit-visual:hover .orbit-node, .orbit-visual:hover .orbit-logo, .orbit-visual:focus-within .orbit-node, .orbit-visual:focus-within .orbit-logo { animation-play-state: paused; }
 @keyframes orbit-spin { from { transform: rotate(var(--orbit-angle)); } to { transform: rotate(calc(var(--orbit-angle) + 360deg)); } }
-@keyframes orbit-counter-spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(-360deg); } }
-.about-copy { direction: rtl; max-width: 460px; }
-.about-copy h2 { font-size: clamp(28px, 3.6vw, 44px); }
-.about-lead { font-size: 16px; font-weight: 600; max-width: 420px; margin: 0 0 12px; color: #f3f5fe; }
-.about-description { max-width: 440px; margin: 0 0 10px; color: #c2cde0; font-size: 13px; line-height: 1.9; }
-.about-english { font-family: Arial, sans-serif; color: #9baac4; line-height: 1.8; font-size: 13px; direction: ltr; text-align: left; }
-.about-stats { display: flex; gap: 30px; margin-top: 24px; }
-.about-stats div { display: flex; flex-direction: column; gap: 3px; }
-.about-stats strong { color: #c6c2ff; font-size: 22px; line-height: 1.2; }
-.about-stats span { color: #9eacc5; font-size: 10px; }
+@keyframes orbit-counter-spin { from { transform: translate(-50%, -50%) rotate(calc(0deg - var(--orbit-angle))); } to { transform: translate(-50%, -50%) rotate(calc(-360deg - var(--orbit-angle))); } }
+.about-copy { direction: rtl; min-width: 0; margin-right: 18px; display: flex; flex-direction: column; gap: 15px; }
+.about-heading { display: flex; flex-direction: column; gap: 16px; }
+.about-copy h2 { margin: 0; color: white; font-size: 40px; font-weight: 600; line-height: 48px; }
+.about-lead { margin: 0; color: #a78bfa; font-size: 19px; font-weight: 600; line-height: 28px; }
+.about-description { margin: 0; color: white; font-size: 16px; font-weight: 400; line-height: 35px; }
+.about-stats { display: flex; align-items: center; justify-content: space-between; width: min(100%, 492px); min-height: 70px; }
+.about-stat { display: flex; align-items: center; gap: 10px; }
+.about-stat > div { display: flex; flex-direction: column; gap: 3px; }
+.about-stats strong { color: white; font-size: 29px; line-height: 35px; font-weight: 600; }
+.about-stats span { color: white; font-size: 14px; line-height: 22px; }
+.about-stat-projects span { font-size: 18px; }
+@media (max-width: 1100px) {
+  .orbit-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 40px; }
+  .about-copy { grid-row: 1; width: min(100% - 48px, 738px); margin: 0 auto; }
+  .orbit-visual { width: min(100% - 48px, 520px); }
+}
 .text-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; color: #b0adff; font-size: 13px; }
 
 .process-section { padding-top: 45px; padding-bottom: 95px; }
@@ -206,9 +217,6 @@ button { color: inherit; }
   .solution-card { min-height: 180px; }
   .solution-card p { white-space: normal; line-height: 1.6; overflow: visible; }
   .solutions-section .services-introduction p { line-height: 1.7; }
-  .orbit-layout { grid-template-columns: 1fr; gap: 35px; }
-  .about-copy { text-align: center; justify-self: center; }
-  .about-copy .text-link { justify-content: center; }
   .contact-section { grid-template-columns: 1fr; }
   .contact-details { display: grid; grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -241,7 +249,6 @@ button { color: inherit; }
   .hero-stats div { width: 100px; }
   .hero-stats strong { font-size: 24px; line-height: 30px; }
   .hero-stats span { font-size: 11px; }
-  .main-content { margin-top: 0; border-radius: 35px 35px 0 0; }
   .section { width: min(100% - 32px, 1120px); padding-block: 60px; }
   .solutions-section { width: min(100% - 32px, 1249px); padding-top: 64px; }
   .section-heading h2, .about-copy h2, .contact-intro h2 { font-size: 27px; }
@@ -255,18 +262,13 @@ button { color: inherit; }
   .solution-card { min-height: 190px; padding: 20px 12px; gap: 12px; }
   .solution-card h3 { font-size: 14px; line-height: 1.6; }
   .solution-card p { font-size: 12px; line-height: 1.8; }
-  .about-section { padding-top: 12px; }
-  .orbit-layout { padding: 24px 15px; gap: 22px; border-radius: 18px; }
-  .orbit-visual { width: min(100%, 340px); }
-  .orbit-logo { width: 43px; height: 43px; }
-  .orbit-logo img { width: 34px; height: 34px; }
-  .orbit-center { width: 57px; height: 57px; }
-  .orbit-center img { width: 34px; height: 34px; }
-  .about-lead { font-size: 14px; }
-  .about-description { font-size: 12px; }
-  .about-english { font-size: 11px; }
-  .about-stats { justify-content: center; gap: 22px; }
-  .about-stats strong { font-size: 19px; }
+  .about-section { padding-top: 0; padding-bottom: 40px; }
+  .about-copy h2 { font-size: 30px; line-height: 40px; }
+  .about-lead { font-size: 16px; }
+  .about-description { font-size: 14px; line-height: 29px; }
+  .about-stats { flex-wrap: wrap; justify-content: flex-start; gap: 20px; }
+  .about-stats strong { font-size: 24px; }
+  .about-stats span, .about-stat-projects span { font-size: 13px; }
   .process-section { padding-top: 20px; padding-bottom: 60px; }
   .process-diagram { height: 340px; margin-top: 18px; }
   .process-node { width: 86px; gap: 6px; }
